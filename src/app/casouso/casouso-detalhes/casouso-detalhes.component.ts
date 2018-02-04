@@ -13,8 +13,7 @@ import {tap} from 'rxjs/operators'; // catchError, map,
 
 @Component({
     selector: 'app-casouso-detalhes',
-    templateUrl: './casouso-detalhes.component.html',
-    styleUrls: ['./casouso-detalhes.component.css']
+    templateUrl: './casouso-detalhes.component.html'
 })
 export class CasousoDetalhesComponent implements OnInit {
 

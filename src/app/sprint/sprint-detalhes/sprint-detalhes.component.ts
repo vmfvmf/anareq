@@ -12,8 +12,7 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'app-sprint-detalhes',
-    templateUrl: './sprint-detalhes.component.html',
-    styleUrls: ['./sprint-detalhes.component.css']
+    templateUrl: './sprint-detalhes.component.html'
 })
 export class SprintDetalhesComponent implements OnInit {
 
@@ -56,7 +55,7 @@ export class SprintDetalhesComponent implements OnInit {
 
     novo(content: any) {
         this.casouso = {sprint_id: this.sprint.id};
-        this.open(content);
+        this.open(content); 
     }
 
     open(content: any) {

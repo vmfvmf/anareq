@@ -4,8 +4,7 @@ import {SprintService} from '../sprint.service';
 
 @Component({
     selector: 'app-sprint-lista',
-    templateUrl: './sprint-lista.component.html',
-    styleUrls: ['./sprint-lista.component.css']
+    templateUrl: './sprint-lista.component.html'
 })
 export class SprintListaComponent implements OnInit {
     @Input() projeto_id: number;

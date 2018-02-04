@@ -1,11 +1,25 @@
-<h2>Novo Projeto</h2>
-<label>Projeto
-      <input #nome id="nome" placeholder="Nome do projeto"/>
-</label>
-<br/>
-<br/>
-<label>Descrição
-      <input type="text" #descricao id="descricao" placeholder="Descrição do projeto"/>
-</label>
-<br/>
-<button (click)="novo(nome.value,descricao.value)">Criar</button>
+
+<div class="modal-body">
+    <h5 class="input-group mb-3"> {{janela}} </h5>
+
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <label class="input-group-text" for="titulo">Nome</label>
+        </div>
+        <input #titulo [(ngModel)]="projeto.nome" id="nome" type="text" class="form-control" placeholder="título" required="">
+    </div>
+
+
+    <div class="input-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text">Descrição</span>
+        </div>
+        <textarea #descricao [(ngModel)]="projeto.descricao" id="descricao"  class="form-control" aria-label="With textarea"></textarea>
+    </div>
+    <br/>
+</div>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" 
+            (click)="gravar()" >Gravar</button>
+</div>

@@ -4,8 +4,7 @@ import {Casouso} from '../casouso';
 
 @Component({
     selector: 'app-casouso-novo',
-    templateUrl: './casouso-novo.component.html',
-    styleUrls: ['./casouso-novo.component.css']
+    templateUrl: './casouso-novo.component.html'
 })
 export class CasousoNovoComponent implements OnInit {
     private _c: Casouso;

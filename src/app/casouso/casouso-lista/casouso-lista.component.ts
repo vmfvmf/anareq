@@ -4,8 +4,7 @@ import {CasousoService} from '../casouso.service';
 
 @Component({
     selector: 'app-casouso-lista',
-    templateUrl: './casouso-lista.component.html',
-    styleUrls: ['./casouso-lista.component.css']
+    templateUrl: './casouso-lista.component.html'
 })
 export class CasousoListaComponent implements OnInit {
     @Input() sprint_id: number;

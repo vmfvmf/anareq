@@ -16,6 +16,7 @@ const routes: Routes = [
 { path: 'login', component: LoginComponent },
 //{ path: 'fluxopasso/:id', component: ProjetoDetalhesComponent },
 { path: 'projeto/:id', component: ProjetoDetalhesComponent },
+{ path: 'projetos', component: ProjetoListaComponent },
 { path: 'sprint/:id', component: SprintDetalhesComponent },
 { path: 'fluxo/:id', component: FluxoDetalhesComponent },
 { path: 'casouso/:id', component: CasousoDetalhesComponent },
