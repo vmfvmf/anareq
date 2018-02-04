@@ -1,0 +1,21 @@
+<div *ngIf="sprint"  >
+    <h2><a class="btn btn-primary" routerLink="/projeto/{{projeto.id}}">
+            {{ projeto.nome | uppercase }} 
+        </a> <span class="btn btn-secondary">SPRINT {{ sprint.numero  | number: '2.0-2' }} </span> </h2>
+    <br/>
+</div>
+<br/>
+
+<app-casouso-lista [sprint_id]="sprint.id" (aoEditarUC)="editar($event,content)" (aoCriarUC)="novo(open(content))"></app-casouso-lista>
+
+<br/>    
+
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title">Caso de Uso</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <app-casouso-novo [casouso]="casouso" (aoGravar)="c('gravar')"></app-casouso-novo>
+</ng-template>

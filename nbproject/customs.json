@@ -1,0 +1,8 @@
+{
+    "elements": {
+        "app-messages": {},
+        "router-outlet": {},
+        "app-navbar": {}
+    },
+    "attributes": {}
+}

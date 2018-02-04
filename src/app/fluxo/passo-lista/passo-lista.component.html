@@ -1,0 +1,33 @@
+
+<h2>Passos do Fluxo: {{fluxo.sigla}} - {{fluxo.titulo}} </h2>
+
+<p>{{fluxo.descricao}}</p>
+<ul class="passos list-group ">
+    <li class="list-group-item " *ngFor="let passo of passos" >  
+        <div class="input-group">
+            <span  class="form-control">
+                {{passo.numero}} - {{passo.descricao}} 
+            </span>
+
+            <div class="input-group-append">
+                <button class="btn btn-outline-primary "  title="excluir projeto" >esboço</button>
+                <button class="btn btn-outline-primary " (click)="open(content)"  title="excluir projeto" >RN</button>
+            </div>
+        </div>
+    </li>
+</ul>
+<br/>
+<ng-template #content let-c="close" let-d="dismiss">
+<div class="modal-header">
+    <h4 class="modal-title">Regra de negócio</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<app-rn-novo></app-rn-novo>
+<div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="c('gravar')">Gravar</button>
+</div>
+</ng-template>
+
+<!--<pre>{{closeResult}}</pre>-->

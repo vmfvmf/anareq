@@ -1,0 +1,28 @@
+<h1 class="h3 mb-3 font-weight-normal">Novo fluxo do caso de uso</h1>
+
+<div class="form-group">
+    <label for="sigla">Sigla</label>
+    <input #sigla style="width:200px;margin: auto !important;" type="text" id="sigla" class="form-control" placeholder="sigla" required="">
+  </div>
+
+ <div class="form-group">
+    <label for="titulo">Título</label>
+    <input #titulo style="width:200px;margin: auto !important;" type="text" id="titulo" class="form-control" placeholder="titulo" required="">
+  </div>
+
+<div class="form-group">
+    <label for="descricao" >Descrição</label>
+    <textarea #descricao style="width:800px;margin: auto !important;" class="form-control" id="exampleFormControlTextarea1" rows="5" id="descricao"></textarea>
+</div>
+
+<button style="width:200px; margin: auto !important;" class="btn btn-lg btn-primary btn-block" 
+        (click)="gravar(sigla.value,titulo.value,descricao.value)">Gravar</button>
+
+
+
+
+
+<!--<label for="titulo" class="sr-only">Titulo</label>
+<input #titulo style="width:200px;margin: auto !important;" type="text" id="titulo" class="form-control" placeholder="titulo" required="">-->
+
+

@@ -1,0 +1,28 @@
+<div *ngIf="fluxo"  >
+    <h2>
+        <a class="btn btn-primary" routerLink="/projeto/{{projeto.id}}">
+            {{ projeto.nome | uppercase }} 
+        </a> 
+        <a class="btn btn-primary" routerLink="/sprint/{{sprint.id}}">
+            SPRINT {{ sprint.numero | number: '2.0-2' }}
+        </a> 
+        <a class="btn btn-primary" routerLink="/casouso/{{casouso.id}}">
+             UC{{ casouso.id | number: '2.0-2'}} - {{ casouso.titulo }}
+        </a> 
+    </h2>
+    <h2>
+        <span class="btn btn-secondary"> {{fluxo.sigla}} - {{fluxo.titulo}} </span> 
+    </h2>
+    <br/>
+    <div>
+        {{fluxo.descricao}}
+    </div>
+    <br/>
+    
+</div>
+<br/>
+
+<app-passo-lista [fluxo]="fluxo"></app-passo-lista>
+
+<br/>
+<!--<app-passo-novo [fluxo]="fluxo" ></app-passo-novo>-->

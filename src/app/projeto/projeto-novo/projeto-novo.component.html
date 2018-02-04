@@ -1,0 +1,11 @@
+<h2>Novo Projeto</h2>
+<label>Projeto
+      <input #nome id="nome" placeholder="Nome do projeto"/>
+</label>
+<br/>
+<br/>
+<label>Descrição
+      <input type="text" #descricao id="descricao" placeholder="Descrição do projeto"/>
+</label>
+<br/>
+<button (click)="novo(nome.value,descricao.value)">Criar</button>
