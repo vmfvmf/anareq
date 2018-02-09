@@ -9,9 +9,9 @@ import {Projeto} from '../projeto';
 export class ProjetoNovoComponent implements OnInit {
     private _projeto: Projeto;
     @Input()
-    set projeto(c: Projeto) {
-        this.janela = (c.id > 0) ? 'Editar' : 'Novo';
-        this._projeto = c;
+    set projeto(obj: Projeto) {
+        this.janela = (obj.id > 0) ? 'Editar' : 'Novo';
+        this._projeto = obj;
 
     }
     get projeto() {
@@ -22,25 +22,17 @@ export class ProjetoNovoComponent implements OnInit {
 
     @Output() aoGravar = new EventEmitter<any>();
 
-    constructor(
-        private projetoService: ProjetoService) {}
+    constructor(private projetoService: ProjetoService) {}
 
-
-    ngOnInit() {
-    }
+    ngOnInit() { }
 
     gravar(): void {
         if (this.projeto.id > 0) {
-            this.projetoService.gravar(this.projeto);
-            this.atualiza(this.projeto);
+            this.projetoService.gravar(this.projeto)
+            .subscribe( _ => this.aoGravar.emit(_));
         }
         else this.projetoService.novo(this.projeto)
-            .subscribe((p: Projeto) => this.atualiza(p));
-    }
-
-    atualiza(p: Projeto) {
-        this.aoGravar.emit(p);
-        this.projeto = p;
+            .subscribe((p: Projeto) => this.aoGravar.emit(p));
     }
 
 }

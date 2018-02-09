@@ -1,30 +1,41 @@
-import { Component, OnInit, Input } from '@angular/core';
-import {Fluxo} from '../fluxo';
+import {Component, OnInit, Input, EventEmitter, Output} from '@angular/core';
 import {PassoService} from '../passo.service';
-
+import {Passo} from '../passo';
 
 @Component({
-  selector: 'app-passo-novo',
-  templateUrl: './passo-novo.component.html',
-  styleUrls: ['./passo-novo.component.css']
+    selector: 'app-passo-novo',
+    templateUrl: './passo-novo.component.html'
 })
 export class PassoNovoComponent implements OnInit {
-    @Input() fluxo: Fluxo;
+    private _c: Passo;
     
-  constructor(private passoService: PassoService) { }
+    @Input()
+    set passo(c: Passo) {
+        this.janela = (c.id > 0) ? 'Editar' : 'Novo';
+        this._c = c;
 
-  ngOnInit() {
-  }
-  
-   gravar(descricao: string, numero: number): void {
-      let passo = {
-            descricao: descricao, 
-            number: numero,
-            fluxo_id: this.fluxo.id
-          };
-          
-        this.passoService.novo(descricao, numero, this.fluxo.id)
-            .subscribe();
     }
+    get passo() {
+        return this._c;
+    }
+
+    private janela: string = 'Novo';
+
+    @Output() aoGravar = new EventEmitter<any>();
+
+    constructor(private passoService: PassoService) {}
+
+    ngOnInit() {
+    }
+
+    gravar(): void {
+        if (this.passo.id > 0) {
+            this.passoService.gravar(this.passo)
+                .subscribe(_ => this.aoGravar.emit(_));
+        }
+        else this.passoService.novo(this.passo)
+            .subscribe((c: Passo) => this.aoGravar.emit(c));
+    }
+
 
 }

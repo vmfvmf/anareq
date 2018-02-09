@@ -9,15 +9,10 @@
         <span class="btn btn-secondary"> UC{{ casouso.numero | number: '2.0-2'}} - {{ casouso.titulo }} </span> 
     </h2>
     <br/>
-    <div>
+    <div> 
         {{casouso.descricao}}
     </div>
-    <br/>
-    
 </div>
 <br/>
 
-<!--
-<app-fluxo-lista [casouso_id]="casouso.id"></app-fluxo-lista>
-<br/>
-<app-fluxo-novo [casouso]="casouso" ></app-fluxo-novo>-->
+<app-fluxo-lista [casouso_id]="casouso.id" ></app-fluxo-lista>

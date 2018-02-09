@@ -1,33 +1,26 @@
 
-<h2>Passos do Fluxo: {{fluxo.sigla}} - {{fluxo.titulo}} </h2>
-
-<p>{{fluxo.descricao}}</p>
 <ul class="passos list-group ">
     <li class="list-group-item " *ngFor="let passo of passos" >  
         <div class="input-group">
-            <span  class="form-control">
-                {{passo.numero}} - {{passo.descricao}} 
-            </span>
+            <h5>{{passo.numero}} - {{passo.descricao}}  </h5>
 
             <div class="input-group-append">
-                <button class="btn btn-outline-primary "  title="excluir projeto" >esboço</button>
-                <button class="btn btn-outline-primary " (click)="open(content)"  title="excluir projeto" >RN</button>
+                <!--<button class="btn btn-outline-primary "  title="excluir projeto" >esboço</button>-->
+                <button class="btn btn-sm btn-outline-primary" aria-label="Novo" (click)="novaRn(content)" >
+                    <span aria-hidden="true">n</span>
+                </button>
             </div>
         </div>
-    </li>
-</ul>
-<br/>
-<ng-template #content let-c="close" let-d="dismiss">
-<div class="modal-header">
-    <h4 class="modal-title">Regra de negócio</h4>
-    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-            <span aria-hidden="true">&times;</span>
+    <app-rn-lista [passo]="passo"></app-rn-lista>
+</li>
+<li class="list-group-item " > 
+    <button class="btn btn-sm btn-outline-primary" aria-label="Novo"  >
+        <span aria-hidden="true">incluir passo</span>
     </button>
-</div>
-<app-rn-novo></app-rn-novo>
-<div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="c('gravar')">Gravar</button>
-</div>
-</ng-template>
+</li>
+</ul>
 
-<!--<pre>{{closeResult}}</pre>-->
+
+<!--<app-rn-novo [rn]="rn" (aoGravar)="c('gravar')"></app-rn-novo>-->
+
+

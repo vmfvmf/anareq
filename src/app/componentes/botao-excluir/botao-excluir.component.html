@@ -1,0 +1,12 @@
+<button type="button" class="btn btn-outline-danger" (click)="IsCollapsed = !IsCollapsed"
+        [attr.aria-expanded]="!IsCollapsed" aria-controls="collapseExample">
+    <span aria-hidden="true"> &times; </span>
+</button>
+
+
+<div id="collapseExample" [ngbCollapse]="IsCollapsed">
+    <button class="btn btn-outline-danger" aria-label="Excluir" 
+            (click)="excluir()">
+        Confirmar
+    </button>
+</div>

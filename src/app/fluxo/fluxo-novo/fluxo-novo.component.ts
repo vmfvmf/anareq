@@ -1,32 +1,54 @@
-import { Component, OnInit, Input } from '@angular/core';
-import {Casouso} from '../../casouso/casouso';
+import {Component, OnInit, Input, EventEmitter, Output} from '@angular/core';
 import {FluxoService} from '../fluxo.service';
+import {Fluxo} from '../fluxo';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap'
 
 @Component({
-  selector: 'app-fluxo-novo',
-  templateUrl: './fluxo-novo.component.html',
-  styleUrls: ['./fluxo-novo.component.css']
+    selector: 'app-fluxo-novo',
+    templateUrl: './fluxo-novo.component.html'
 })
 export class FluxoNovoComponent implements OnInit {
-    @Input() casouso: Casouso;
+    private _c: Fluxo;
     
-  constructor(private fluxoService: FluxoService) { }
+    
+    @Input()
+    set fluxo(c: Fluxo) {
+        this.janela = (c.id > 0) ? 'Editar' : 'Novo';
+        this._c = c;
 
-  ngOnInit() {
-  }
-  
-  gravar(sigla: string, titulo: string, descricao: string): void {
-      let fluxo = {
-          sigla: sigla, 
-          titulo: titulo, 
-          descricao: descricao, 
-          casouso_id: this.casouso.id,
-          //projeto_id: this.casouso.projeto_id, 
-          sprint_id: this.casouso.sprint_id
-          };
-          
-        this.fluxoService.novo(fluxo)
-            .subscribe();
+    }
+    get fluxo() {
+        return this._c;
     }
 
+    private janela: string = 'Novo';
+
+    @Output() abrir = new EventEmitter<any>();
+    @Output() aposGravar = new EventEmitter<any>();
+
+    constructor(private fluxoService: FluxoService, private modalService: NgbModal) {}
+
+    ngOnInit() {
+    }
+
+    gravar(): void {
+        if (this.fluxo.id > 0) {
+            this.fluxoService.gravar(this.fluxo)
+                .subscribe();
+        }
+        else this.fluxoService.novo(this.fluxo)
+            .subscribe();
+    }
+    
+    public open() {
+        alert('tets');
+//        this.modalService.open(content).result.then((result) => {
+//            switch (result) {
+//                case 'gravar': this.aposGravar.emit(); break;
+//                default: break;
+//            }
+//        }, (reason) => {
+//            this.aposGravar.emit(); 
+//        });
+    }
 }

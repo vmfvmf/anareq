@@ -9,15 +9,14 @@ import {ActivatedRoute} from '@angular/router';
 //import {Observable} from 'rxjs/observable';
 import {tap} from 'rxjs/operators'; // catchError, map, 
 
-
-
 @Component({
     selector: 'app-casouso-detalhes',
     templateUrl: './casouso-detalhes.component.html'
 })
 export class CasousoDetalhesComponent implements OnInit {
 
-    @Input() casouso: Casouso;
+    //@Input() 
+    public casouso: Casouso;
     public projeto: Projeto;
     public sprint: Sprint;
 
@@ -26,22 +25,21 @@ export class CasousoDetalhesComponent implements OnInit {
         private casousoService: CasousoService,
         private projetoService: ProjetoService) {}
 
-    ngOnInit() {
-        this.getCasouso();
-    }
+    ngOnInit() { this.getCasouso(); }
 
     getCasouso(): void {
         const id = +this.route.snapshot.paramMap.get('id');
         this.casousoService.detalhes(id).pipe(
-                tap((c: Casouso) => this.getProjetoSprint(c))
+                tap((obj: Casouso) => this.getProjetoSprint(obj))
             )
-            .subscribe(c => this.casouso = c);
+            .subscribe(obj => this.casouso = obj);
     }
     
-    getProjetoSprint(c:Casouso){
-        this.sprintService.detalhes(c.sprint_id).subscribe(s => {
+    getProjetoSprint(obj: Casouso){
+        this.sprintService.detalhes(obj.sprint_id).subscribe(s => {
             this.sprint = s;
-            this.projetoService.detalhes(s.projeto_id).subscribe(p => this.projeto = p);
+            this.projetoService.detalhes(s.projeto_id)
+            .subscribe(p => this.projeto = p);
         });
         
     }

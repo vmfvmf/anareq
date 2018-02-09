@@ -6,16 +6,7 @@
 </div>
 <br/>
 
-<app-casouso-lista [sprint_id]="sprint.id" (aoEditarUC)="editar($event,content)" (aoCriarUC)="novo(open(content))"></app-casouso-lista>
+<app-casouso-lista [sprint_id]="sprint.id" ></app-casouso-lista>
 
-<br/>    
 
-<ng-template #content let-c="close" let-d="dismiss">
-    <div class="modal-header">
-        <h4 class="modal-title">Caso de Uso</h4>
-        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-                <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    <app-casouso-novo [casouso]="casouso" (aoGravar)="c('gravar')"></app-casouso-novo>
-</ng-template>
+

@@ -4,7 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 
 import {Projeto} from './projeto';
-import {Response} from './../response';
+import {IAlertMsg} from './../iAlertMsg';
 import {MessageService} from './../message.service';
 
 import {DbbaseService} from '../dbbase.service';
@@ -15,7 +15,7 @@ export class ProjetoService extends DbbaseService {
     constructor(public http: HttpClient, public messageService: MessageService) {
         super(http, messageService);
         this.className = 'projeto';
-        this.baseUrl = 'http://vmf.localhost/Services/projeto?x=';
+        // http://177.95.60.69:85/Services/projeto?x=
     }
 
 
@@ -23,7 +23,7 @@ export class ProjetoService extends DbbaseService {
         return super.novo(obj);
     }
 
-    public gravar(obj: Projeto): Observable<Projeto> {
+    gravar(obj: Projeto): Observable<boolean | IAlertMsg> {
         return super.gravar(obj);
     }
 
@@ -32,7 +32,7 @@ export class ProjetoService extends DbbaseService {
         return super.todos();
     }
 
-    deleta(obj: Projeto | number): Observable<Response> {
+    deleta(obj: Projeto | number): Observable<IAlertMsg> {
         return super.deleta(typeof obj === 'number' ? obj : obj.id);
 
     }

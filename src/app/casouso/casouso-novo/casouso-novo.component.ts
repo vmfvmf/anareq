@@ -28,17 +28,12 @@ export class CasousoNovoComponent implements OnInit {
     }
 
     gravar(): void {
-        if(this.casouso.id > 0){
-            this.casousoService.gravar(this.casouso);
-            this.atualiza(this.casouso);
+        if (this.casouso.id > 0) {
+            this.casousoService.gravar(this.casouso)
+                .subscribe(_ => this.aoGravar.emit(_));
         }
         else this.casousoService.novo(this.casouso)
-            .subscribe((c: Casouso) => this.atualiza(c));
-    }
-    
-    atualiza(c: Casouso){
-        this.aoGravar.emit(c);
-        this.casouso = c;
+            .subscribe((c: Casouso) => this.aoGravar.emit(c));
     }
 
 }

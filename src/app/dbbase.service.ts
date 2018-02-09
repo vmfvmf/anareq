@@ -5,7 +5,7 @@ import {Observable} from 'rxjs/Observable';
 import {of} from 'rxjs/observable/of';
 import {catchError, map, tap} from 'rxjs/operators';
 
-import {Response} from './response';
+import {IAlertMsg} from './iAlertMsg';
 import {MessageService} from './message.service';
 
 const httpOptions = {
@@ -23,70 +23,64 @@ export class DbbaseService {
         return this._className;
     }
 
-    private _baseUrl = '';
-    set baseUrl(arg: string) {
-        this._baseUrl = arg;
-    }
+    private _baseUrl = 'http://177.95.60.69:83/Services/';
+    
     get baseUrl() {
-        return this._baseUrl;
+        return this._baseUrl + this.className + '?x=';
     }
 
     constructor(public http: HttpClient, public messageService: MessageService) {}
 
-    novo(obj: any): Observable<any> {
-        this.log(`starting ${this.className}`);
+    protected novo(obj: any): Observable<any> {
+        this.log({msg: `criando ${this.className}`});
         var url = this.baseUrl + 'novo';
         return this.http.post<any>(url, obj, httpOptions).pipe(
-            tap((arg: any) => this.log(`added  ${this.className} w/ id=${arg.id} `)),
+            tap((arg: any) => this.log({msg:`Sucesso! Foi adicionado ${this.className} com id ${arg.id} `, tipo: 'success'})),
             catchError(this.handleError<any>(`add ${this.className}`))
         );
     }
 
     detalhes(id: number): Observable<any> {
+        this.log({msg: `recuperando ${this.className}`});
         const url = `${this.baseUrl}detalhes&id=${id}`;
         return this.http.get<any>(url).pipe(
-            tap((arg: any) => this.log(`fetched ${this.className} ${arg}`)),
+            tap((arg: any) => this.log({msg:`recuperado ${this.className} com id ${arg.id} `})),
             catchError(this.handleError<any>(`${this.className} id=${id}`))
         );
     }
     
-    todos(){
+    protected todos(){
+        this.log({msg: `recuperando todos ${this.className}`});
         var url = this.baseUrl + 'todos'; 
         return this.http.post<any[]>(url, { }, httpOptions).pipe(
-            tap((vars: any[]) => this.log(`recovered ${vars.length} ${this.className}`)),
+            tap((vars: any[]) => this.log({msg: `recuperado ${vars.length} registros do tipo ${this.className} `})),
             catchError(this.handleError<any[]>(`todos ${this.className} `))
         );
     }
     
-    todos_servico_x(algum_id: number, servico: string){
+    protected todos_servico_x(algum_id: number, servico: string){
         var url = this.baseUrl + servico; 
         return this.http.post<any[]>(url, {id: algum_id}, httpOptions).pipe(
-            tap((vars: any[]) => this.log(`recovered ${vars.length} ${this.className}`)),
+            tap((vars: any[]) => this.log({msg: `recuperado ${vars.length} registros do tipo ${this.className} `})),
             catchError(this.handleError<any[]>(`todos ${this.className} do ${servico} id ${algum_id}`))
         );
     }
 
-    gravar(obj: any): Observable<any> {
-        let letObj: Observable<any>;
-        this._gravar(obj).forEach(response => letObj = response.data);
-        return letObj;
-    }
-
-    private _gravar(obj: any): Observable<Response> {
-        this.log(`updating ${this.className}`);
+    gravar(obj: any): Observable<boolean | IAlertMsg> {
+        this.log({msg:`atualizando ${this.className}`});
         let url = this.baseUrl + 'gravar';
-        return this.http.post<Response>(url, obj, httpOptions).pipe(
-            tap((r: Response) => this.log(`${this.className} update: ${r.msg} `)),
-            catchError(this.handleError<Response>(`update ${this.className}`))
+        return this.http.post<boolean>(url, obj, httpOptions).pipe(
+            tap((_) => this.log({msg: `Registro atualizado com sucesso.`, tipo: 'success' })),
+            catchError(this.handleError<IAlertMsg>(`update ${this.className}`))
         );
     }
     
-    deleta(id: number): Observable<Response> {
+    deleta(id: number): Observable<IAlertMsg> {
         const url = `${this.baseUrl}deleta&id=${id}`;
 
-        return this.http.delete<Response>(url, httpOptions).pipe(
-            tap((response: Response) => this.log(`${response.status}:${response.msg} `)),
-            catchError(this.handleError<Response>(`deleta ${this.className}`))
+        return this.http.delete<IAlertMsg>(url, httpOptions).pipe(
+            tap((_) => this.log({msg: `Registro excluído com sucesso.`, tipo: 'success' })),
+            catchError(this.handleError<IAlertMsg>(`deleta ${this.className}`))
         );
     }
 
@@ -98,15 +92,16 @@ export class DbbaseService {
             console.error(error); // log to console instead
 
             // TODO: better job of transforming error for user consumption
-            this.log(`${operation} failed: ${error.message}`);
+            //
+            this.log({msg: `${operation} falhou: ${error.message}`, tipo: 'danger' });
 
             // Let the app keep running by returning an empty result.
             return of(result as T);
         };
     }
 
-    log(message: string) {
-        this.messageService.add(`${this.className} Service: ` + message);
+    log(msg: IAlertMsg) {
+        this.messageService.addIAlertMsg(msg);
     }
 
 }

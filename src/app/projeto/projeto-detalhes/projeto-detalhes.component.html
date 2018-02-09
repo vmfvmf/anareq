@@ -6,16 +6,5 @@
     </p>
 </div>
 <br/>
-<app-sprint-lista [projeto_id]="projeto.id" (aoCriarSp)="criar(content)" (aoEditarSp)="editar($event,content)"></app-sprint-lista>
+<app-sprint-lista [projeto_id]="projeto.id" ></app-sprint-lista>
 <br/>
-
-
-<ng-template #content let-c="close" let-d="dismiss">
-    <div class="modal-header">
-        <h4 class="modal-title">Sprint</h4>
-        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-                <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    <app-sprint-novo [sprint]="sprint" (aoGravar)="c('gravar')" ></app-sprint-novo>
-</ng-template>

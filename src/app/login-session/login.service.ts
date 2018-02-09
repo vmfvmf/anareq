@@ -68,7 +68,7 @@ export class LoginService {
 
     /** Log a HeroService message with the MessageService */
     private log(message: string) {
-        this.messageService.add('LoginService: ' + message);
+        this.messageService.addIAlertMsg({msg: 'LoginService: ' + message});
     }
 
 }

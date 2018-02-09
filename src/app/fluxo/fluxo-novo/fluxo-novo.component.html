@@ -1,28 +1,39 @@
-<h1 class="h3 mb-3 font-weight-normal">Novo fluxo do caso de uso</h1>
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title">Fluxo</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <h5 class="input-group mb-3"> {{janela}} </h5>
 
-<div class="form-group">
-    <label for="sigla">Sigla</label>
-    <input #sigla style="width:200px;margin: auto !important;" type="text" id="sigla" class="form-control" placeholder="sigla" required="">
-  </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <label class="input-group-text" for="sigla">Sigla</label>
+            </div>
+            <input #sigla [(ngModel)]="fluxo.sigla" id="sigla" type="text" class="form-control" placeholder="título" required="">
+        </div>
 
- <div class="form-group">
-    <label for="titulo">Título</label>
-    <input #titulo style="width:200px;margin: auto !important;" type="text" id="titulo" class="form-control" placeholder="titulo" required="">
-  </div>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Título</span>
+            </div>
+            <textarea #titulo [(ngModel)]="fluxo.titulo" id="titulo"  class="form-control" aria-label="With textarea"></textarea>
+        </div>
 
-<div class="form-group">
-    <label for="descricao" >Descrição</label>
-    <textarea #descricao style="width:800px;margin: auto !important;" class="form-control" id="exampleFormControlTextarea1" rows="5" id="descricao"></textarea>
-</div>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Descrição</span>
+            </div>
+            <textarea #descricao [(ngModel)]="fluxo.descricao" id="descricao"  class="form-control" aria-label="With textarea"></textarea>
+        </div>
+        <br/>
+    </div>
 
-<button style="width:200px; margin: auto !important;" class="btn btn-lg btn-primary btn-block" 
-        (click)="gravar(sigla.value,titulo.value,descricao.value)">Gravar</button>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" 
+                (click)="gravar()" >Gravar</button>
+    </div>
 
-
-
-
-
-<!--<label for="titulo" class="sr-only">Titulo</label>
-<input #titulo style="width:200px;margin: auto !important;" type="text" id="titulo" class="form-control" placeholder="titulo" required="">-->
-
-
+</ng-template>

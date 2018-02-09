@@ -31,7 +31,11 @@ import { FluxoDetalhesComponent } from './fluxo/fluxo-detalhes/fluxo-detalhes.co
 import { PassoNovoComponent } from './fluxo/passo-novo/passo-novo.component';
 import { PassoListaComponent } from './fluxo/passo-lista/passo-lista.component';
 import { SessionComponent } from './login-session/session/session.component';
-import { RnNovoComponent } from './rn/rn-novo/rn-novo.component';
+import {RnNovoComponent} from './rn/rn-novo/rn-novo.component';
+import {RnService} from './rn/rn.service';
+import {RnListaComponent} from './rn/rn-lista/rn-lista.component';
+import { BotaoExcluirComponent } from './componentes/botao-excluir/botao-excluir.component';
+import {RnModule} from './rn/rn.module';
 
 
 @NgModule({
@@ -56,14 +60,17 @@ import { RnNovoComponent } from './rn/rn-novo/rn-novo.component';
         PassoNovoComponent,
         PassoListaComponent,
         SessionComponent,
-        RnNovoComponent
+        BotaoExcluirComponent,
+        RnNovoComponent,
+        RnListaComponent
     ],
     imports: [
         BrowserModule,
         FormsModule,
         HttpClientModule,
         AppRoutingModule,
-        NgbModule.forRoot()
+        NgbModule.forRoot(),
+        RnModule
         // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
         // and returns simulated server responses.
         // Remove it when a real server is ready to receive requests.
@@ -72,7 +79,7 @@ import { RnNovoComponent } from './rn/rn-novo/rn-novo.component';
         //)
     ],
     providers: [MessageService, LoginService, ProjetoService, SprintService, CasousoService,
-        FluxoService, PassoService],
+        FluxoService, PassoService, RnService],
     bootstrap: [AppComponent]
 })
 export class AppModule {

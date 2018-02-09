@@ -1,6 +1,7 @@
 import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
 import {Sprint} from '../sprint';
 import {SprintService} from '../sprint.service';
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'app-sprint-lista',
@@ -8,20 +9,18 @@ import {SprintService} from '../sprint.service';
 })
 export class SprintListaComponent implements OnInit {
     @Input() projeto_id: number;
-    
+
     sprints: Sprint[];
+    sprint: Sprint;
 
-    @Output() aoCriarSp = new EventEmitter<any>();
-    @Output() aoEditarSp = new EventEmitter<Sprint>();
-
-    constructor(private sprintService: SprintService) {}
+    constructor(private sprintService: SprintService, private modalService: NgbModal) {}
 
     ngOnInit() {
         this.getSprints();
     }
 
     getSprints(): void {
-        this.sprintService.todos(this.projeto_id)
+        this.sprintService.todos_do_projeto(this.projeto_id)
             .subscribe(sprints => this.sprints = sprints);
     }
 
@@ -31,12 +30,38 @@ export class SprintListaComponent implements OnInit {
         this.getSprints();
     }
 
-    novo(): void {
-        this.aoCriarSp.emit();
+    editar(content: any, s: Sprint) {
+        this.sprint = s;
+        this.open(content);
     }
 
-    editar(sprint: Sprint): void {
-        this.aoEditarSp.emit(sprint);
+    novo(content: any) {
+        this.sprint = {projeto_id: this.projeto_id};
+        this.open(content);
     }
+
+    open(content: any) {
+        this.modalService.open(content).result.then((result) => {
+            switch (result) {
+                case 'gravar': this.getSprints(); break;
+                default: break;
+            }
+        }, (reason) => {
+            this.getSprints();
+//            this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+        });
+        //$route.reload();
+    }
+
+
+//    private getDismissReason(reason: any): string {
+//        if (reason === ModalDismissReasons.ESC) {
+//            return 'by pressing ESC';
+//        } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+//            return 'by clicking on a backdrop';
+//        } else {
+//            return `with: ${reason}`;
+//        }
+//    }
 
 }

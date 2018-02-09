@@ -1,5 +1,5 @@
 <h2> Sprints 
-    <button class="btn btn-sm btn-outline-primary" aria-label="Novo" (click)="novo()"  >
+    <button class="btn btn-sm btn-outline-primary" aria-label="Novo" (click)="novo(content)"  >
         <span aria-hidden="true">n</span>
     </button>
 </h2>
@@ -12,15 +12,25 @@
 
             <div class="input-group-append list-group-item">
 
-                <button class="btn btn-outline-warning" aria-label="Editar" (click)="editar(sprint)">
+                <button class="btn btn-outline-warning" aria-label="Editar" (click)="editar(content,sprint)">
                     <span aria-hidden="true"> e </span>
                 </button>
-                <button class="btn btn-outline-danger" aria-label="Excluir" (click)="delete(sprint)">
-                    <span aria-hidden="true"> &times; </span>
-                </button>
+                <app-botao-excluir (aoExcluir)="delete(sprint)"></app-botao-excluir>
+          
             </div>
         </div>
     </li>
 </ul>
+
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title">Sprint</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <app-sprint-novo [sprint]="sprint" (aoGravar)="c('gravar')" ></app-sprint-novo>
+</ng-template>
+
 
 

@@ -1,0 +1,17 @@
+
+<ul class="rns list-group ">
+    <li class="list-group-item list-group-item-dark  " *ngFor="let rn of rns" >  
+        <div class="container"  >
+            <div class="row " >
+                    <!--<button class="btn btn-outline-primary "  title="excluir projeto" >e</button>-->                        
+
+                    <h6> {{rn.sigla}}{{rn.numero}} - {{rn.titulo}}</h6>
+                
+            </div>
+            <div class="row " >
+               
+                {{rn.descricao}}
+            </div>
+        </div>
+    </li>
+</ul>

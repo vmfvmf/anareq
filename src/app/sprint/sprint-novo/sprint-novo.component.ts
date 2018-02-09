@@ -4,8 +4,7 @@ import {Sprint} from '../sprint';
 
 @Component({
     selector: 'app-sprint-novo',
-    templateUrl: './sprint-novo.component.html',
-    styleUrls: ['./sprint-novo.component.css']
+    templateUrl: './sprint-novo.component.html'
 })
 export class SprintNovoComponent implements OnInit {
     private _s: Sprint;
@@ -23,25 +22,16 @@ export class SprintNovoComponent implements OnInit {
 
     @Output() aoGravar = new EventEmitter<any>();
 
-    constructor(
-        private sprintService: SprintService) {}
+    constructor( private sprintService: SprintService) {}
 
-    ngOnInit() {
-    }
+    ngOnInit() { }
 
     gravar(): void {
         if (this.sprint.id > 0) {
-            this.sprintService.gravar(this.sprint);
-            this.atualiza(this.sprint);
+            this.sprintService.gravar(this.sprint)
+            .subscribe( _ => this.aoGravar.emit(null));
         }
         else this.sprintService.novo(this.sprint)
-            .subscribe((s: Sprint) => this.atualiza(s));
+            .subscribe( _ => this.aoGravar.emit(null));
     }
-
-    atualiza(s: Sprint) {
-        this.aoGravar.emit(s);
-        this.sprint = s;
-    }
-
-
 }
