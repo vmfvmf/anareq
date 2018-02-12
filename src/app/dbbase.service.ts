@@ -39,6 +39,30 @@ export class DbbaseService {
             catchError(this.handleError<any>(`add ${this.className}`))
         );
     }
+    
+    protected novo_com_relacao(param: any,callback: (p1:any, p2:any) => void): Observable<any> {
+        this.log({msg: `criando novo com relacao`});
+        var url = this.baseUrl + 'novo';
+        return this.http.post<any>(url, param, httpOptions).pipe(
+            tap(
+            (sparam: any) => {
+                this.log({msg:`Sucesso! Foi adicionado ${this.className} com id ${sparam.id} `, tipo: 'success'});
+                callback(sparam, this);
+            }),
+            catchError(this.handleError<any>(`add ${this.className} com relacao`))
+        );
+    }
+    
+    nova_relacao(param: any, relNomeT: string): void {
+        this.log({msg: `criando relacao ${relNomeT} ${param}`});
+        var url = this.baseUrl + relNomeT;
+         this.log({msg: `criando relacao ${url}`});
+         console.log(param);
+        this.http.post<any>(url, param, httpOptions).pipe(
+            tap((arg: any) => this.log({msg:`Sucesso! Foi adicionado relacao ${relNomeT} com id ${arg} `, tipo: 'success'})),
+            catchError(this.handleError<any>(`add relacao ${relNomeT}`))
+        ).subscribe();
+    }
 
     detalhes(id: number): Observable<any> {
         this.log({msg: `recuperando ${this.className}`});
@@ -66,20 +90,21 @@ export class DbbaseService {
         );
     }
 
-    gravar(obj: any): Observable<boolean | IAlertMsg> {
+    gravar(obj: any): Observable<any> {
         this.log({msg:`atualizando ${this.className}`});
         let url = this.baseUrl + 'gravar';
-        return this.http.post<boolean>(url, obj, httpOptions).pipe(
-            tap((_) => this.log({msg: `Registro atualizado com sucesso.`, tipo: 'success' })),
+        return this.http.post<any>(url, obj, httpOptions).pipe(
+            tap((retorno: any) => {this.log({msg: `Registro atualizado com sucesso.`, tipo: 'success' })
+            ;}),
             catchError(this.handleError<IAlertMsg>(`update ${this.className}`))
         );
     }
     
     deleta(id: number): Observable<IAlertMsg> {
         const url = `${this.baseUrl}deleta&id=${id}`;
-
+        this.log({msg:`deletando ${this.className} url: ${url}`});
         return this.http.delete<IAlertMsg>(url, httpOptions).pipe(
-            tap((_) => this.log({msg: `Registro excluído com sucesso.`, tipo: 'success' })),
+            tap(( ) => this.log({msg: `Registro excluído com sucesso.`, tipo: 'success' })),
             catchError(this.handleError<IAlertMsg>(`deleta ${this.className}`))
         );
     }

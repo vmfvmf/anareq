@@ -9,8 +9,10 @@ import {MessageService} from './../message.service';
 
 import {DbbaseService} from '../dbbase.service';
 
+import {EuCRUD} from '../Interfaces/MinhasInterfaces';
+
 @Injectable()
-export class ProjetoService extends DbbaseService {
+export class ProjetoService extends DbbaseService implements EuCRUD {
 
     constructor(public http: HttpClient, public messageService: MessageService) {
         super(http, messageService);
@@ -23,7 +25,7 @@ export class ProjetoService extends DbbaseService {
         return super.novo(obj);
     }
 
-    gravar(obj: Projeto): Observable<boolean | IAlertMsg> {
+    gravar(obj: Projeto): Observable<Projeto> {
         return super.gravar(obj);
     }
 

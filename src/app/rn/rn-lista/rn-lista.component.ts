@@ -28,19 +28,4 @@ export class RnListaComponent implements OnInit {
             .subscribe(obj => this.rns = obj);
     }
 
-//    novo(content: any) {
-//        this.rn = {};
-//        //this.open(content);
-//    }
-
-//    delete(obj: Rn): void {
-//        this.rnService.deleta(obj).subscribe();
-//        this.getRns();
-//    }
-
-//    editar(obj: Rn, content: any): void {
-//        this.rn = obj;
-//        this.open(content);
-//    }
-
 }

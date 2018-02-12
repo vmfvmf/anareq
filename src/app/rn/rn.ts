@@ -4,6 +4,7 @@ export class Rn {
   sigla?: string;
   titulo?: string;
   descricao?: string;
-  casouso_id: number;
+  fluxopasso_id?: number;
+  casouso_id?: number;
 }
 

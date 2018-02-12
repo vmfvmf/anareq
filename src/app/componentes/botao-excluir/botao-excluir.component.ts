@@ -13,7 +13,7 @@ export class BotaoExcluirComponent implements OnInit {
   }
   
   excluir(){
-      this.aoExcluir.emit(null);
+      this.aoExcluir.emit();
   }
 
 }

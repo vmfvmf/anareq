@@ -1,10 +1,11 @@
-<div *ngIf="projeto">
-<h2>{{ projeto.nome | uppercase }}</h2>
-<br/>
+<app-breadcrumb (atualizouObjeto)="objeto=$event" ></app-breadcrumb>
+
+<div *ngIf="objeto" >
+    <br/>
     <p>
-      {{ projeto.descricao }}
+        {{ objeto.descricao }}
     </p>
+    <br/>
+    <app-sprint-lista [projeto]="objeto" ></app-sprint-lista>
+    <br/>
 </div>
-<br/>
-<app-sprint-lista [projeto_id]="projeto.id" ></app-sprint-lista>
-<br/>

@@ -1,38 +1,34 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {Rn} from '../rn';
 import {RnService} from '../rn.service';
+import {EuFormulario} from '../../Interfaces/MinhasInterfaces';
 
 @Component({
     selector: 'app-rn-novo',
     templateUrl: './rn-novo.component.html'
 })
-export class RnNovoComponent implements OnInit {
+export class RnNovoComponent implements OnInit, EuFormulario {
     private _rn: Rn;
     @Input()
-    set rn(obj: Rn) {
-        this.janela = (obj.id > 0) ? 'Editar' : 'Novo';
+    set objeto(obj: Rn) {
+        this.janela = (obj && obj.id) ? 'Editar' : 'Nova';
         this._rn = obj;
-
     }
-    get rn() {
-        return this._rn;
-    }
-
-    private janela: string = 'Novo';
-
+    get objeto() { return this._rn; }
+    private janela = '';
     @Output() aoGravar = new EventEmitter<any>();
 
     constructor(private rnService: RnService) { }
 
-    ngOnInit() {  }
+    ngOnInit() { }
 
     gravar(): void {
-        if (this.rn.id > 0) {
-            this.rnService.gravar(this.rn)
+        if (this.objeto.id > 0) {
+            this.rnService.gravar(this.objeto)
                 .subscribe(_ => this.aoGravar.emit(_));
         }
-        else {
-            this.rnService.novo(this.rn)
+        else if (this.objeto.casouso_id) {
+            this.rnService.novo(this.objeto)
              .subscribe((obj: Rn) => this.aoGravar.emit(obj)); 
         }
     }

@@ -1,10 +1,12 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ViewChild, ComponentFactoryResolver } from '@angular/core';
 import {Passo} from '../passo';
-import {Fluxo} from '../../fluxo/fluxo';
 import {Rn} from '../../rn/rn';
+import {RnNovoComponent} from '../../rn/rn-novo/rn-novo.component';
+import {RnListaComponent} from '../../rn/rn-lista/rn-lista.component';
+import {RnListaselComponent} from '../../rn/rn-listasel/rn-listasel.component';
+import {JanelaComponent} from '../../componentes/janela/janela.component';
 import {PassoService} from '../passo.service';
 import {ActivatedRoute} from '@angular/router';
-import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'app-passo-lista',
@@ -14,10 +16,14 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 export class PassoListaComponent implements OnInit {
     public rn: Rn;
     //@Input() fluxo: Fluxo;
+    @ViewChild(RnListaComponent) rnLista: RnListaComponent;
+    @ViewChild(RnListaselComponent) rnlistasel: RnListaselComponent;
+//    @ViewChild(RnNovoComponent) rnnovo: RnNovoComponent;
+    @ViewChild(JanelaComponent) janela: JanelaComponent;
     public passos: Passo[];
 
-    constructor(private passoService: PassoService,
-        private route: ActivatedRoute, private modalService: NgbModal) {}
+    constructor(private passoService: PassoService, private componentFactoryResolver: ComponentFactoryResolver,
+        private route: ActivatedRoute) {}
 
     ngOnInit() {
         this.getPassos();
@@ -29,20 +35,22 @@ export class PassoListaComponent implements OnInit {
             .subscribe(ps => this.passos = ps);
     }
     
-    novaRn(content: any){
-        this.rn = { casouso_id: 3 };
-        this.open(content);
+    janelaResultado(event){
+        console.log(event);
     }
 
-    open(content: any) {
-        this.modalService.open(content).result.then((result) => {
-            switch (result) {
-                case 'gravar': this.getPassos(); break;
-                default: break;
-            }
-        }, (reason) => {
-            this.getPassos();
-        });
+    atualizaPassoRns() {
+        this.rnLista.getRns();
+    }
+    addVinculo(obj: Passo) {
+        this.rnlistasel.passo = obj;
+        this.rnlistasel.open();
+    }
+    novaRn(obj: Passo) {
+        this.janela.objeto = {casouso_id: 20, fluxopasso_id: obj.id};
+        this.janela.janelaTitulo = 'Regra de Negócio';
+        let componentFactory = this.componentFactoryResolver.resolveComponentFactory(RnNovoComponent);
+        this.janela.open(componentFactory);
     }
 
 }

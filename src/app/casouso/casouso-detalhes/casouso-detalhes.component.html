@@ -1,14 +1,6 @@
+<app-breadcrumb></app-breadcrumb>
+<br>
 <div *ngIf="casouso"  >
-    <h2>
-        <a class="btn btn-primary" routerLink="/projeto/{{projeto.id}}">
-            {{ projeto.nome | uppercase }} 
-        </a> 
-        <a class="btn btn-primary" routerLink="/sprint/{{sprint.id}}">
-            SPRINT {{ sprint.numero | number: '2.0-2' }}
-        </a> 
-        <span class="btn btn-secondary"> UC{{ casouso.numero | number: '2.0-2'}} - {{ casouso.titulo }} </span> 
-    </h2>
-    <br/>
     <div> 
         {{casouso.descricao}}
     </div>

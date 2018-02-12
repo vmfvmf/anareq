@@ -1,26 +1,32 @@
-
-<ul class="passos list-group ">
-    <li class="list-group-item " *ngFor="let passo of passos" >  
-        <div class="input-group">
-            <h5>{{passo.numero}} - {{passo.descricao}}  </h5>
-
-            <div class="input-group-append">
-                <!--<button class="btn btn-outline-primary "  title="excluir projeto" >esboço</button>-->
-                <button class="btn btn-sm btn-outline-primary" aria-label="Novo" (click)="novaRn(content)" >
-                    <span aria-hidden="true">n</span>
-                </button>
+<ul class="passos list-group " >
+    <li class="list-group-item "  *ngFor="let passo of passos" >  
+        <div class="container">
+            <div class="row">
+                <div class="col-8">
+                    <h5>{{passo.numero}} - {{passo.descricao}}  </h5>
+                </div>
+                <div class="col">
+                    <!--<button class="btn btn-outline-primary "  title="excluir projeto" >esboço</button>-->
+                    <button class="btn btn-outline-primary" aria-label="Novo" (click)="novaRn(passo)" >
+                        <i class="material-icons"> note_add </i>
+                    </button> <br>
+                    <button class="btn  btn-outline-primary" aria-label="Novo" (click)="addVinculo(passo)" >
+                        <span aria-hidden="true">vincular rn</span>
+                    </button>
+                </div>
             </div>
+            <app-rn-lista [passo]="passo"></app-rn-lista>
         </div>
-    <app-rn-lista [passo]="passo"></app-rn-lista>
-</li>
-<li class="list-group-item " > 
-    <button class="btn btn-sm btn-outline-primary" aria-label="Novo"  >
-        <span aria-hidden="true">incluir passo</span>
-    </button>
-</li>
+    </li>
+    <li class="list-group-item " > 
+        <button class="btn btn-sm btn-outline-primary" aria-label="Novo"  >
+            <span aria-hidden="true">incluir passo</span>
+        </button>
+    </li>
 </ul>
 
+<app-rn-listasel (aoSelecionar)="atualizaPassoRns()" ></app-rn-listasel> 
 
-<!--<app-rn-novo [rn]="rn" (aoGravar)="c('gravar')"></app-rn-novo>-->
+<!--(aoGravar)=""(aoGravar)=""-->
 
 

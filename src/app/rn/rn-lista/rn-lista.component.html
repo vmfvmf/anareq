@@ -1,17 +1,7 @@
-
 <ul class="rns list-group ">
-    <li class="list-group-item list-group-item-dark  " *ngFor="let rn of rns" >  
-        <div class="container"  >
-            <div class="row " >
-                    <!--<button class="btn btn-outline-primary "  title="excluir projeto" >e</button>-->                        
-
-                    <h6> {{rn.sigla}}{{rn.numero}} - {{rn.titulo}}</h6>
-                
-            </div>
-            <div class="row " >
-               
-                {{rn.descricao}}
-            </div>
-        </div>
+    <li class="list-group-item  " *ngFor="let rn of rns" >  
+        <button class="btn btn-info form-control" routerLink="/rn/{{rn.id}}" >
+            {{rn.sigla}}{{rn.numero  | number: '2.0-2'}} - {{rn.titulo}}
+        </button>
     </li>
 </ul>

@@ -1,9 +1,6 @@
-import {Component, OnInit, Input, ViewChild} from '@angular/core';
-import {Casouso} from "../../casouso/casouso";
+import {Component, OnInit, Input } from '@angular/core';
 import {Sprint} from "../sprint";
 import {SprintService} from "../sprint.service";
-import {ProjetoService} from "../../projeto/projeto.service";
-import {Projeto} from "../../projeto/projeto";
 import {ActivatedRoute} from '@angular/router';
 import {tap} from 'rxjs/operators';
 
@@ -16,32 +13,21 @@ export class SprintDetalhesComponent implements OnInit {
 
     private _sprint: Sprint;
     @Input()
-    set sprint(p: Sprint) {
+    set objeto(p: Sprint) {
         this._sprint = p;
-        this.casouso = {sprint_id: p.id};
     }
-    get sprint() {
+    get objeto() {
         return this._sprint;
     }
-
-    public projeto: Projeto;
-    public casouso: Casouso;
-
-
     constructor(private route: ActivatedRoute,
-        private sprintService: SprintService, 
-        private projetoService: ProjetoService) {}
+        private sprintService: SprintService) {}
 
-    ngOnInit() {
-        this.getSprint();
-    }
+    ngOnInit() { }
 
     getSprint(): void {
         const id = +this.route.snapshot.paramMap.get('id');
-        this.sprintService.detalhes(id).pipe(
-            tap((s: Sprint) =>
-                this.projetoService.detalhes(s.projeto_id).subscribe(p => this.projeto = p)))
-            .subscribe(s => this.sprint = s);
+        this.sprintService.detalhes(id)
+            .subscribe(s => this.objeto = s);
     }
 
 }

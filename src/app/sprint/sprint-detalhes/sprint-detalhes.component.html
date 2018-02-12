@@ -1,12 +1,8 @@
-<div *ngIf="sprint"  >
-    <h2><a class="btn btn-primary" routerLink="/projeto/{{projeto.id}}">
-            {{ projeto.nome | uppercase }} 
-        </a> <span class="btn btn-secondary">SPRINT {{ sprint.numero  | number: '2.0-2' }} </span> </h2>
-    <br/>
-</div>
+<app-breadcrumb (atualizouObjeto)="objeto=$event" ></app-breadcrumb>
+
 <br/>
 
-<app-casouso-lista [sprint_id]="sprint.id" ></app-casouso-lista>
+<app-casouso-lista [sprint_id]="objeto.id" ></app-casouso-lista>
 
 
 

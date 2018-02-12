@@ -1,0 +1,22 @@
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title">Regra de Negócio</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <h5 class="input-group mb-3"> Clique para selecionar </h5>
+        <ul class="rns list-group ">
+            <li class="list-group-item list-group-item-dark  " *ngFor="let rn of rns" >  
+                <button class="btn btn-info form-control" (click)="seleciona(rn)" >
+                    {{rn.sigla}}{{rn.numero  | number: '2.0-2'}} - {{rn.titulo}}
+                </button>
+            </li>
+        </ul>
+    </div>
+    <div class="modal-footer">
+        <!--            <button type="button" class="btn btn-outline-dark" 
+                            (click)="gravar()" >Gravar</button>-->
+    </div>
+</ng-template>

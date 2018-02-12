@@ -34,8 +34,12 @@ import { SessionComponent } from './login-session/session/session.component';
 import {RnNovoComponent} from './rn/rn-novo/rn-novo.component';
 import {RnService} from './rn/rn.service';
 import {RnListaComponent} from './rn/rn-lista/rn-lista.component';
+import {RnListaselComponent} from './rn/rn-listasel/rn-listasel.component';
 import { BotaoExcluirComponent } from './componentes/botao-excluir/botao-excluir.component';
-import {RnModule} from './rn/rn.module';
+import { JanelaComponent, NgbdModalContent } from './componentes/janela/janela.component';
+import { JanelaDirective } from './componentes/janela/janela.directive';
+import { RnDetalhesComponent } from './rn/rn-detalhes/rn-detalhes.component';
+import { BreadcrumbComponent } from './componentes/breadcrumb/breadcrumb.component';
 
 
 @NgModule({
@@ -62,15 +66,19 @@ import {RnModule} from './rn/rn.module';
         SessionComponent,
         BotaoExcluirComponent,
         RnNovoComponent,
-        RnListaComponent
+        RnListaComponent,
+        RnListaselComponent,
+        JanelaComponent, NgbdModalContent,
+        JanelaDirective,
+        RnDetalhesComponent,
+        BreadcrumbComponent
     ],
     imports: [
         BrowserModule,
         FormsModule,
         HttpClientModule,
         AppRoutingModule,
-        NgbModule.forRoot(),
-        RnModule
+        NgbModule.forRoot()
         // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
         // and returns simulated server responses.
         // Remove it when a real server is ready to receive requests.
@@ -80,7 +88,8 @@ import {RnModule} from './rn/rn.module';
     ],
     providers: [MessageService, LoginService, ProjetoService, SprintService, CasousoService,
         FluxoService, PassoService, RnService],
-    bootstrap: [AppComponent]
+    bootstrap: [AppComponent],
+    entryComponents: [NgbdModalContent, RnNovoComponent]
 })
 export class AppModule {
 

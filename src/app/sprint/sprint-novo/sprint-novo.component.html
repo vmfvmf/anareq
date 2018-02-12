@@ -1,14 +1,8 @@
+<h5 class="input-group mb-3"> {{janela}} </h5>
 
-<div class="modal-body">
-    <h5 class="input-group mb-3">{{titulo}}</h5>
-    <div class="input-group mb-3">
-        <div class="input-group-prepend">
-            <label class="input-group-text" for="numero">Número</label>
-        </div>
-        <input #numero [(ngModel)]="sprint.numero" type="text" id="numero" class="form-control" placeholder="número" required="">
+<div class="input-group mb-3">
+    <div class="input-group-prepend">
+        <label class="input-group-text" for="titulo">Número</label>
     </div>
+    <input [(ngModel)]="objeto.numero" id="numero" type="text" class="form-control" placeholder="numero" required="">
 </div>
-<div class="modal-footer">
-        <button type="button" class="btn btn-outline-dark" 
-                (click)="gravar()" >Gravar</button>
-    </div>
