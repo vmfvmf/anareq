@@ -1,32 +1,13 @@
-<ul class="passos list-group " >
-    <li class="list-group-item "  *ngFor="let passo of passos" >  
-        <div class="container">
-            <div class="row">
-                <div class="col-8">
-                    <h5>{{passo.numero}} - {{passo.descricao}}  </h5>
-                </div>
-                <div class="col">
-                    <!--<button class="btn btn-outline-primary "  title="excluir projeto" >esboço</button>-->
-                    <button class="btn btn-outline-primary" aria-label="Novo" (click)="novaRn(passo)" >
-                        <i class="material-icons"> note_add </i>
-                    </button> <br>
-                    <button class="btn  btn-outline-primary" aria-label="Novo" (click)="addVinculo(passo)" >
-                        <span aria-hidden="true">vincular rn</span>
-                    </button>
-                </div>
-            </div>
-            <app-rn-lista [passo]="passo"></app-rn-lista>
-        </div>
-    </li>
-    <li class="list-group-item " > 
-        <button class="btn btn-sm btn-outline-primary" aria-label="Novo"  >
-            <span aria-hidden="true">incluir passo</span>
-        </button>
-    </li>
-</ul>
-
-<app-rn-listasel (aoSelecionar)="atualizaPassoRns()" ></app-rn-listasel> 
-
-<!--(aoGravar)=""(aoGravar)=""-->
+<h2> Passos    
+    <button class="btn btn-outline-info" aria-label="Novo" (click)="abreJanela.emit()" >
+        <i class="material-icons"> note_add </i>
+    </button>
+</h2>
+<div class="list-group ">
+    <button *ngFor="let fluxopasso of fluxopassos" class="list-group-item list-group-item-info"
+        routerLink="/fluxopasso/{{fluxopasso.id}}">
+        {{fluxopasso.numero}}  - {{fluxopasso.descricao}}
+</button>
+</div>
 
 

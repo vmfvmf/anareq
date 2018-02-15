@@ -25,11 +25,11 @@ import {CasousoListaComponent} from './casouso/casouso-lista/casouso-lista.compo
 import {CasousoDetalhesComponent} from './casouso/casouso-detalhes/casouso-detalhes.component';
 import {FluxoNovoComponent} from './fluxo/fluxo-novo/fluxo-novo.component';
 import {FluxoService} from './fluxo/fluxo.service';
-import {PassoService} from './fluxo/passo.service';
+import {FluxopassoService} from './fluxo/fluxopasso.service';
 import { FluxoListaComponent } from './fluxo/fluxo-lista/fluxo-lista.component';
 import { FluxoDetalhesComponent } from './fluxo/fluxo-detalhes/fluxo-detalhes.component';
-import { PassoNovoComponent } from './fluxo/passo-novo/passo-novo.component';
-import { PassoListaComponent } from './fluxo/passo-lista/passo-lista.component';
+import { FluxopassoNovoComponent } from './fluxo/fluxopasso-novo/fluxopasso-novo.component';
+import { FluxopassoListaComponent } from './fluxo/fluxopasso-lista/fluxopasso-lista.component';
 import { SessionComponent } from './login-session/session/session.component';
 import {RnNovoComponent} from './rn/rn-novo/rn-novo.component';
 import {RnService} from './rn/rn.service';
@@ -40,6 +40,9 @@ import { JanelaComponent, NgbdModalContent } from './componentes/janela/janela.c
 import { JanelaDirective } from './componentes/janela/janela.directive';
 import { RnDetalhesComponent } from './rn/rn-detalhes/rn-detalhes.component';
 import { BreadcrumbComponent } from './componentes/breadcrumb/breadcrumb.component';
+import { FluxopassoDetalhesComponent } from './fluxo/fluxopasso-detalhes/fluxopasso-detalhes.component';
+import { FluxopassoEsbocoComponent } from './fluxo/fluxopasso-esboco/fluxopasso-esboco.component';
+import { FluxopassoEsbocoNovoComponent } from './fluxo/fluxopasso-esboco-novo/fluxopasso-esboco-novo.component';
 
 
 @NgModule({
@@ -61,8 +64,8 @@ import { BreadcrumbComponent } from './componentes/breadcrumb/breadcrumb.compone
         FluxoNovoComponent,
         FluxoListaComponent,
         FluxoDetalhesComponent,
-        PassoNovoComponent,
-        PassoListaComponent,
+        FluxopassoNovoComponent,
+        FluxopassoListaComponent,
         SessionComponent,
         BotaoExcluirComponent,
         RnNovoComponent,
@@ -71,7 +74,10 @@ import { BreadcrumbComponent } from './componentes/breadcrumb/breadcrumb.compone
         JanelaComponent, NgbdModalContent,
         JanelaDirective,
         RnDetalhesComponent,
-        BreadcrumbComponent
+        BreadcrumbComponent,
+        FluxopassoDetalhesComponent,
+        FluxopassoEsbocoComponent,
+        FluxopassoEsbocoNovoComponent
     ],
     imports: [
         BrowserModule,
@@ -87,9 +93,10 @@ import { BreadcrumbComponent } from './componentes/breadcrumb/breadcrumb.compone
         //)
     ],
     providers: [MessageService, LoginService, ProjetoService, SprintService, CasousoService,
-        FluxoService, PassoService, RnService],
+        FluxoService, FluxopassoService, RnService],
     bootstrap: [AppComponent],
-    entryComponents: [NgbdModalContent, RnNovoComponent]
+    entryComponents: [NgbdModalContent, RnNovoComponent, SprintNovoComponent, CasousoNovoComponent, FluxoNovoComponent,
+        ProjetoNovoComponent, FluxopassoNovoComponent, RnListaselComponent, FluxopassoEsbocoNovoComponent]
 })
 export class AppModule {
 

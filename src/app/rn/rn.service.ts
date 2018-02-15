@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 
 import {Observable} from 'rxjs/Observable';
-import {tap} from 'rxjs/operators';
 
 import {Rn} from './rn';
 import {IAlertMsg} from './../iAlertMsg';
@@ -19,18 +18,18 @@ export class RnService extends DbbaseService {
         // http://177.95.60.69:85/Services/rn?x=
     }
 
-    novo(param: Rn): Observable<Rn> {
-        return super.novo_com_relacao(param,this.relacaoCallback);
-       // return (obj.passo_id > 0 ? super.novo_com_relacao(obj,this.add_fluxopasso_rn) : super.novo(obj));
+    novo(obj: Rn): Observable<Rn> {
+        return (obj.fluxopasso_id > 0 ? super.novo_com_relacao(obj,this.relacaoCallback) : super.novo(obj));
     }
     
     relacaoCallback(param: Rn, dbase: DbbaseService): void{
+        console.log('com relacao');
         dbase.nova_relacao({'rn_id': <number>param.id, 'fluxopasso_id': <number>param.fluxopasso_id},
             "fluxopassorn");
     }
     
-    add_fluxopasso_rn(param: Rn): void{
-        super.nova_relacao({'rn_id': <number>param.id, 'fluxopasso_id': <number>param.fluxopasso_id},
+    add_fluxopasso_rn(param: Rn): Observable<any>{
+        return super.nova_relacao({'rn_id': <number>param.id, 'fluxopasso_id': <number>param.fluxopasso_id},
             "fluxopassorn");
     }
 
@@ -41,6 +40,10 @@ export class RnService extends DbbaseService {
 
     todos(): Observable<Rn[]> {
         return super.todos();
+    }
+    
+    desvinculados_do_passo(passo_id: number): Observable<Rn[]> {
+        return super.todos_servico_x(passo_id,'desvinculados_do_passo');
     }
 
     deleta(param: Rn | number): Observable<IAlertMsg> {

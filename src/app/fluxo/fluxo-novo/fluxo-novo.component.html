@@ -1,39 +1,26 @@
-<ng-template #content let-c="close" let-d="dismiss">
-    <div class="modal-header">
-        <h4 class="modal-title">Fluxo</h4>
-        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-                <span aria-hidden="true">&times;</span>
-        </button>
+<h5 class="input-group mb-3"> {{janela}} </h5>
+
+<div class="input-group mb-3">
+    <div class="input-group-prepend">
+        <label class="input-group-text" for="numero">Número</label>
     </div>
-    <div class="modal-body">
-        <h5 class="input-group mb-3"> {{janela}} </h5>
+    <input [(ngModel)]="objeto.numero" id="numero" type="text" 
+        class="form-control" placeholder="numero" required="">
+</div>
 
-        <div class="input-group mb-3">
-            <div class="input-group-prepend">
-                <label class="input-group-text" for="sigla">Sigla</label>
-            </div>
-            <input #sigla [(ngModel)]="fluxo.sigla" id="sigla" type="text" class="form-control" placeholder="título" required="">
-        </div>
-
-        <div class="input-group">
-            <div class="input-group-prepend">
-                <span class="input-group-text">Título</span>
-            </div>
-            <textarea #titulo [(ngModel)]="fluxo.titulo" id="titulo"  class="form-control" aria-label="With textarea"></textarea>
-        </div>
-
-        <div class="input-group">
-            <div class="input-group-prepend">
-                <span class="input-group-text">Descrição</span>
-            </div>
-            <textarea #descricao [(ngModel)]="fluxo.descricao" id="descricao"  class="form-control" aria-label="With textarea"></textarea>
-        </div>
-        <br/>
+<div class="input-group">
+    <div class="input-group-prepend">
+        <span class="input-group-text">Título</span>
     </div>
+    <textarea [(ngModel)]="objeto.titulo" id="titulo"  class="form-control" aria-label="With textarea"></textarea>
+</div>
 
-    <div class="modal-footer">
-        <button type="button" class="btn btn-outline-dark" 
-                (click)="gravar()" >Gravar</button>
+
+
+<div class="input-group">
+    <div class="input-group-prepend">
+        <span class="input-group-text">Descrição</span>
     </div>
-
-</ng-template>
+    <textarea [(ngModel)]="objeto.descricao" id="descricao"  class="form-control" aria-label="With textarea"></textarea>
+</div>
+<br/>

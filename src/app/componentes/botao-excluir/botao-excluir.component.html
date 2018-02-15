@@ -1,12 +1,12 @@
 <button type="button" class="btn btn-outline-danger" (click)="IsCollapsed = !IsCollapsed"
-        [attr.aria-expanded]="!IsCollapsed" aria-controls="collapseExample">
+        [attr.aria-expanded]="!IsCollapsed" aria-controls="collapseExample"
+        placement="top" [ngbTooltip]="'Excluir ' + classeObj" >
     <i class="material-icons"> delete_forever </i>
 </button>
-
-
 <div id="collapseExample" [ngbCollapse]="IsCollapsed">
+    <br>
     <button class="btn btn-outline-danger" aria-label="Excluir" 
-            (click)="excluir()">
+           (click)="excluir()">
         Confirmar
     </button>
 </div>

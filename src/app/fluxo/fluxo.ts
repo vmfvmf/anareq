@@ -1,6 +1,6 @@
 export class Fluxo {
   id?: number;
-  sigla?: string;
+  numero?: number;
   titulo?: string;
   descricao?: string;
   casouso_id: number;

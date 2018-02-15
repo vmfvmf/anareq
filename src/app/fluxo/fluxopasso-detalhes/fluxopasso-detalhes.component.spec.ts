@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FluxopassoNovoComponent } from './fluxopasso-novo.component';
+import { FluxopassoDetalhesComponent } from './fluxopasso-detalhes.component';
 
-describe('FluxopassoNovoComponent', () => {
-  let component: FluxopassoNovoComponent;
-  let fixture: ComponentFixture<FluxopassoNovoComponent>;
+describe('FluxopassoDetalhesComponent', () => {
+  let component: FluxopassoDetalhesComponent;
+  let fixture: ComponentFixture<FluxopassoDetalhesComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FluxopassoNovoComponent ]
+      declarations: [ FluxopassoDetalhesComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FluxopassoNovoComponent);
+    fixture = TestBed.createComponent(FluxopassoDetalhesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

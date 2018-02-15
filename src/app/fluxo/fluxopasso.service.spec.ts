@@ -1,15 +1,15 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { PassoService } from './passo.service';
+import { FluxopassoService } from './fluxopasso.service';
 
 describe('PassoService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [PassoService]
+      providers: [FluxopassoService]
     });
   });
 
-  it('should be created', inject([PassoService], (service: PassoService) => {
+  it('should be created', inject([FluxopassoService], (service: FluxopassoService) => {
     expect(service).toBeTruthy();
   }));
 });

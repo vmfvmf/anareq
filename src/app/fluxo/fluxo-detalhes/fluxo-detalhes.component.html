@@ -1,16 +1,13 @@
-<app-breadcrumb></app-breadcrumb>
+<app-breadcrumb #controller (atualizouObjeto)="objeto=$event" ></app-breadcrumb>
 
-<br/>
-
-<div *ngIf="fluxo"  >
-
-    <div>
-        {{fluxo.descricao}}
-    </div>
+<div *ngIf="objeto"  >
     <br/>
-    
+    <p>
+        {{objeto.descricao}}
+    </p>
+    <br/>
+    <app-fluxopasso-lista (abreJanela)="controller.abreJanelaX('fluxopasso')"  [fluxo]="objeto" ></app-fluxopasso-lista>
 </div>
 <br/>
 
-<app-passo-lista></app-passo-lista>
 

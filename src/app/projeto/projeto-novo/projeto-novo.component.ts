@@ -10,14 +10,8 @@ import {EuFormulario} from '../../Interfaces/MinhasInterfaces';
 export class ProjetoNovoComponent implements OnInit, EuFormulario {
     private _projeto: Projeto;
     @Input()
-    set objeto(obj: Projeto) {
-        this.janela = (obj && obj.id > 0) ? 'Editar' : 'Novo';
-        this._projeto = obj;
-
-    }
-    get objeto() {
-        return this._projeto;
-    }
+    set objeto(obj: Projeto) { this.janela = (obj && obj.id > 0) ? 'Editar' : 'Novo';  this._projeto = obj;  }
+    get objeto() {  return this._projeto;  }
 
     private janela: string = 'Novo';
 
@@ -33,7 +27,9 @@ export class ProjetoNovoComponent implements OnInit, EuFormulario {
             .subscribe( obj => this.aoGravar.emit( obj ));
         }
         else this.projetoService.novo(this.objeto)
-            .subscribe((obj: Projeto) => this.aoGravar.emit(obj));
+            .subscribe((obj: Projeto) => {
+                this.aoGravar.emit(obj);
+        });
     }
 
 }

@@ -3,7 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 import {Observable} from 'rxjs/Observable';
 import {of} from 'rxjs/observable/of';
-import {catchError, map, tap} from 'rxjs/operators';
+import {catchError, tap} from 'rxjs/operators';
 
 import {IAlertMsg} from './iAlertMsg';
 import {MessageService} from './message.service';
@@ -23,7 +23,7 @@ export class DbbaseService {
         return this._className;
     }
 
-    private _baseUrl = 'http://177.95.60.69:83/Services/';
+    private _baseUrl = 'http://192.168.15.11/Services/';
     
     get baseUrl() {
         return this._baseUrl + this.className + '?x=';
@@ -31,9 +31,9 @@ export class DbbaseService {
 
     constructor(public http: HttpClient, public messageService: MessageService) {}
 
-    protected novo(obj: any): Observable<any> {
-        this.log({msg: `criando ${this.className}`});
-        var url = this.baseUrl + 'novo';
+    protected novo(obj: any, servico: string = 'novo'): Observable<any> {
+        var url = this.baseUrl + servico;
+        this.log({msg: `criando ${this.className} url: ${url}`});
         return this.http.post<any>(url, obj, httpOptions).pipe(
             tap((arg: any) => this.log({msg:`Sucesso! Foi adicionado ${this.className} com id ${arg.id} `, tipo: 'success'})),
             catchError(this.handleError<any>(`add ${this.className}`))
@@ -53,20 +53,19 @@ export class DbbaseService {
         );
     }
     
-    nova_relacao(param: any, relNomeT: string): void {
+    nova_relacao(param: any, relNomeT: string): Observable<any> {
         this.log({msg: `criando relacao ${relNomeT} ${param}`});
         var url = this.baseUrl + relNomeT;
          this.log({msg: `criando relacao ${url}`});
-         console.log(param);
-        this.http.post<any>(url, param, httpOptions).pipe(
+        return this.http.post<any>(url, param, httpOptions).pipe(
             tap((arg: any) => this.log({msg:`Sucesso! Foi adicionado relacao ${relNomeT} com id ${arg} `, tipo: 'success'})),
             catchError(this.handleError<any>(`add relacao ${relNomeT}`))
-        ).subscribe();
+        );
     }
 
     detalhes(id: number): Observable<any> {
-        this.log({msg: `recuperando ${this.className}`});
         const url = `${this.baseUrl}detalhes&id=${id}`;
+        this.log({msg: `recuperando ${this.className} | url: ${url}` });
         return this.http.get<any>(url).pipe(
             tap((arg: any) => this.log({msg:`recuperado ${this.className} com id ${arg.id} `})),
             catchError(this.handleError<any>(`${this.className} id=${id}`))
@@ -84,6 +83,7 @@ export class DbbaseService {
     
     protected todos_servico_x(algum_id: number, servico: string){
         var url = this.baseUrl + servico; 
+        this.log({msg: `recuperando ${this.className} | url: ${url}` });
         return this.http.post<any[]>(url, {id: algum_id}, httpOptions).pipe(
             tap((vars: any[]) => this.log({msg: `recuperado ${vars.length} registros do tipo ${this.className} `})),
             catchError(this.handleError<any[]>(`todos ${this.className} do ${servico} id ${algum_id}`))

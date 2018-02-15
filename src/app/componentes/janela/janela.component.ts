@@ -9,7 +9,7 @@ import {EuFormulario} from '../../Interfaces/MinhasInterfaces';
   template: `
      <div class="modal-header">
       <h4 class="modal-title">{{janelaTitulo}}</h4>
-      <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+      <button type="button" class="close" aria-label="Close" (click)="activeModal.close('cancelar')">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
@@ -17,24 +17,17 @@ import {EuFormulario} from '../../Interfaces/MinhasInterfaces';
       <ng-template j-d></ng-template>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-outline-dark" (click)="fecharComSucesso()">Gravar</button>
+      <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('gravar');">Gravar</button>
     </div>
   `
 })
 export class NgbdModalContent implements OnDestroy{
     @Input() @ViewChild(JanelaDirective) jD: JanelaDirective;
     @Input() janelaTitulo: string = 'Novo';
-    @Output() resultado = new EventEmitter<any>();
+    @Output() resultado = new EventEmitter<string>();
     constructor(public activeModal: NgbActiveModal) { }
     
-    fecharComSucesso(){
-        this.resultado.emit('gravar');
-        this.activeModal.close('gravar');
-    }
-    
-    ngOnDestroy(){
-        this.resultado.emit('fechar');
-    }
+    ngOnDestroy(){ }
 }
 
 @Component({
@@ -52,8 +45,7 @@ export class JanelaComponent implements OnInit {
     objeto: any; // parametro a ser passado para formulario
     constructor(private modalService: NgbModal) {}
  
-    ngOnInit() {
-    }
+    ngOnInit() {  }
 
     open(componentFactory: any) {
         const modalRef = this.modalService.open(NgbdModalContent);
@@ -64,21 +56,22 @@ export class JanelaComponent implements OnInit {
         let componentRef = viewContainerRef.createComponent(componentFactory);
         this.childContent = (<any>componentRef.instance);
         (<EuFormulario> this.childContent).objeto = this.objeto;
-        janelaRef.resultado.subscribe( (r: string) => this.trataResultado(r));
+        modalRef.result.then((result) => {
+            this.trataResultado(result);
+            this.childContent = null;
+            this.objeto = null;
+          }, (reason) => {
+            this.saiuResultado.emit('cancelou');
+          });
     }
     
     trataResultado(r: string){
         switch(r){
             case 'gravar': this.gravar(); break;
-            case 'fechar': this.fecharJanela(); break;
+            case 'cancelar': this.saiuResultado.emit('cancelou');  break;
         }
     }
     
-    fecharJanela(){
-        this.childContent = null;
-        this.objeto = null;
-        this.saiuResultado.emit('cancelou');
-    }
     
     gravar(){
        let formulario = (<EuFormulario>this.childContent);

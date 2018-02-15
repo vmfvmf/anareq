@@ -1,7 +1,8 @@
-export class Passo {
-  id?: number;
-  descricao?: string;
-  fluxo_id: number;
+export class Fluxopassoesboco {
+  fluxopasso_id?: number;
+  numero?: number;
+  titulo?: string;
+  imagem?: File;
 }
 
 

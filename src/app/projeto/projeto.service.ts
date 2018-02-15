@@ -20,7 +20,6 @@ export class ProjetoService extends DbbaseService implements EuCRUD {
         // http://177.95.60.69:85/Services/projeto?x=
     }
 
-
     novo(obj: Projeto): Observable<Projeto> {
         return super.novo(obj);
     }
@@ -39,7 +38,7 @@ export class ProjetoService extends DbbaseService implements EuCRUD {
 
     }
 
-    /** GET hero by id. Will 404 if id not found */
+    /** GET projeto by id. Will 404 if id not found */
     detalhes(id: number): Observable<Projeto> {
         return super.detalhes(id);
     }

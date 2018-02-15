@@ -1,7 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import {RnService} from '../rn.service';
 import {Rn} from '../rn';
-import {Passo} from '../../fluxo/passo';
+import {Fluxopasso} from '../../fluxo/fluxopasso';
 
 @Component({
   selector: 'app-rn-lista',
@@ -14,17 +14,17 @@ export class RnListaComponent implements OnInit {
     rns: Rn[];
     rn: Rn;
 
-    @Input() 
-    passo: Passo;
-    //@Output() aoCriarPrj = new EventEmitter<any>();
+    private _fluxopasso: Fluxopasso;
+    @Input()
+    set objeto(obj: Fluxopasso) {this._fluxopasso = obj; this.getRns();}
+    get objeto() {return this._fluxopasso;}
     
-    ngOnInit() {
-        this.getRns();
-    }
-    
+    @Output() abreJanela = new EventEmitter<any>();
 
+    ngOnInit() { }
+    
     getRns(): void {
-        this.rnService.todos_do_passo(this.passo.id)
+        this.rnService.todos_do_passo(this.objeto.id)
             .subscribe(obj => this.rns = obj);
     }
 

@@ -3,14 +3,15 @@ import {HttpClient} from '@angular/common/http';
 
 import {Observable} from 'rxjs/Observable';
 
-import {Passo} from './passo';
+import {Fluxopasso} from './fluxopasso';
+import {Fluxopassoesboco} from './fluxopassoesboco';
 import {IAlertMsg} from './../iAlertMsg';
 import {MessageService} from './../message.service';
 
 import {DbbaseService} from '../dbbase.service';
 
 @Injectable()
-export class PassoService extends DbbaseService {
+export class FluxopassoService extends DbbaseService {
 
     constructor(public http: HttpClient, public messageService: MessageService) {
         super(http, messageService);
@@ -18,30 +19,34 @@ export class PassoService extends DbbaseService {
     }
 
 
-    novo(obj: Passo): Observable<Passo> {
+    novo(obj: Fluxopasso): Observable<Fluxopasso> {
         return super.novo(obj);
     }
+    
+    novoEsboco(obj: Fluxopassoesboco): Observable<Fluxopassoesboco> {
+        return super.novo(obj, 'novo_esboco');
+    }
 
-    gravar(obj: Passo): Observable<boolean | IAlertMsg> {
+    gravar(obj: Fluxopasso): Observable<boolean | IAlertMsg> {
         return super.gravar(obj);
     }
 
 
-    todos(): Observable<Passo[]> {
+    todos(): Observable<Fluxopasso[]> {
         return super.todos();
     }
     
-    todos_do_fluxo(fluxo_id: number): Observable<Passo[]> {
+    todos_do_fluxo(fluxo_id: number): Observable<Fluxopasso[]> {
         return super.todos_servico_x(fluxo_id,'todos_do_fluxo');
     }
 
-    deleta(obj: Passo | number): Observable<IAlertMsg> {
+    deleta(obj: Fluxopasso | number): Observable<IAlertMsg> {
         return super.deleta(typeof obj === 'number' ? obj : obj.id);
 
     }
 
     /** GET hero by id. Will 404 if id not found */
-    detalhes(id: number): Observable<Passo> {
+    detalhes(id: number): Observable<Fluxopasso> {
         return super.detalhes(id);
     }
 

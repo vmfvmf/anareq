@@ -1,0 +1,21 @@
+<h5 class="input-group mb-3"> {{janela}} </h5>
+
+<div class="input-group mb-3">
+    <div class="input-group-prepend">
+        <label class="input-group-text" for="numero">Número</label>
+    </div>
+    <input [(ngModel)]="fpesboco.numero" id="numero" type="text" 
+        class="form-control" placeholder="numero" required="">
+</div>
+
+<div class="input-group mb-3">
+    <div class="input-group-prepend">
+        <label class="input-group-text" for="titulo">Título</label>
+    </div>
+    <input [(ngModel)]="fpesboco.titulo" id="titulo" type="text" 
+        class="form-control" placeholder="titulo" required="">
+</div>
+<div class="custom-file">
+    <label class="custom-file-label" for="customFile">{{  fpesboco.imagem ? fpesboco.imagem.name : 'Nenhum arquivo selecionado' }}</label>
+  <input  type="file"  class="custom-file-input" id="customFile" (change)="log($event)" >
+</div>

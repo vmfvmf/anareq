@@ -1,4 +1,4 @@
-import {Component, Input, OnInit } from '@angular/core';
+import {Component, Input, OnInit, EventEmitter, Output} from '@angular/core';
 import {Sprint} from '../sprint';
 import {Projeto} from '../../projeto/projeto';
 import {SprintService} from '../sprint.service';
@@ -8,10 +8,15 @@ import {SprintService} from '../sprint.service';
     templateUrl: './sprint-lista.component.html'
 })
 export class SprintListaComponent implements OnInit {
-    @Input() projeto: Projeto;
+    private _projeto: Projeto;
+    @Input()
+    set projeto(obj: Projeto) {this._projeto = obj; this.getSprints(); }
+    get projeto() {return this._projeto;}
 
     sprints: Sprint[];
     sprint: Sprint;
+    
+    @Output() abreJanela = new EventEmitter<any>();
 
     constructor(private sprintService: SprintService) {}
 
@@ -23,5 +28,5 @@ export class SprintListaComponent implements OnInit {
         this.sprintService.todos_do_projeto(this.projeto.id)
             .subscribe(sprints => this.sprints = sprints);
     }
-
+    
 }

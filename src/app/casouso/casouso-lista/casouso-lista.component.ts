@@ -1,55 +1,29 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, EventEmitter, Output} from '@angular/core';
 import {Casouso} from '../casouso';
+import {Sprint} from '../../sprint/sprint';
 import {CasousoService} from '../casouso.service';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'app-casouso-lista',
     templateUrl: './casouso-lista.component.html'
 })
 export class CasousoListaComponent implements OnInit {
-    @Input() sprint_id: number;
-
+   private _sprint: Sprint;
+    @Input() 
+    set sprint(obj: Sprint) {this._sprint = obj; this.getCasousos();}
+    get sprint() {return this._sprint;}
+    
+    @Output() abreJanela = new EventEmitter<any>();
+    
     casousos: Casouso[];
     casouso: Casouso;
 
-    constructor(private casousoService: CasousoService, private modalService: NgbModal) {}
+    constructor(private casousoService: CasousoService) {}
 
-    ngOnInit() {
-        this.getCasousos();
-    }
+    ngOnInit() {  }
 
     getCasousos(): void {
-        this.casousoService.todos_do_sprint(this.sprint_id)
+        this.casousoService.todos_do_sprint(this.sprint.id)
             .subscribe(casousos => this.casousos = casousos);
     }
-
-
-    delete(casouso: Casouso): void {
-        this.casousoService.deleta(casouso).subscribe();
-        this.getCasousos();
-    }
-
-    editar(content: any, obj: Casouso) {
-        this.casouso = obj;
-        this.open(content);
-    }
-
-    novo(content: any) {
-        this.casouso = {sprint_id: this.sprint_id};
-        this.open(content);
-    }
-
-    open(content: any) {
-        this.modalService.open(content).result.then((result) => {
-            switch (result) {
-                case 'gravar': this.getCasousos(); break;
-                default: break;
-            }
-        }, (reason) => {
-            this.getCasousos();
-        });
-    }
-
-
 }

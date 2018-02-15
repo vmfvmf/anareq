@@ -5,35 +5,35 @@
         routerLink="/projeto/{{projeto.id}}" >
         {{ projeto.nome | uppercase }}  
     </a> 
-
+    <br *ngIf="paginaAtual == 'sprint'" />
     <a *ngIf="sprint" class="btn " 
         [class.btn-light]="paginaAtual != 'sprint'"
         [class.btn-info]="paginaAtual == 'sprint'"
         routerLink="/sprint/{{sprint.id}}" >
         SPRINT {{ sprint.numero | number: '2.0-2' }}
     </a> 
-
+<br *ngIf="paginaAtual == 'casouso'" />
     <a *ngIf="casouso" class="btn " 
         [class.btn-light]="paginaAtual != 'casouso'"
         [class.btn-info]="paginaAtual == 'casouso'"
         routerLink="/casouso/{{casouso.id}}">
-        UC{{ casouso.id | number: '2.0-2'}} - {{ casouso.titulo }}
+        UC{{ casouso.numero | number: '2.0-2'}} - {{ casouso.titulo }}
     </a> 
-
+<br *ngIf="paginaAtual == 'fluxo'" />
     <a *ngIf="fluxo" class="btn" 
         [class.btn-light]="paginaAtual != 'fluxo'"
         [class.btn-info]="paginaAtual == 'fluxo'"
         routerLink="/fluxo/{{fluxo.id}}">
-        {{ fluxo.sigla }}{{ fluxo.numero | number: '2.0-2'}} - {{ fluxo.titulo }}
+        Fluxo: {{fluxo.numero == 0 ? 'FB' : 'FA' + (fluxo.numero  | number: '2.0-2') }}  - {{ fluxo.titulo }}
     </a> 
-    
+    <br *ngIf="paginaAtual == 'fluxopasso'" />
     <a *ngIf="fluxopasso" class="btn" 
         [class.btn-light]="paginaAtual != 'fluxopasso'"
         [class.btn-info]="paginaAtual == 'fluxopasso'"
         routerLink="/fluxopasso/{{fluxopasso.id}}">
-        {{ fluxopasso.numero | number: '2.0-2'}} - {{ fluxopasso.titulo }}
+        Passo: {{ fluxopasso.numero | number: '2.0-2'}} - {{ fluxopasso.descricao }}
     </a> 
-
+<br *ngIf="paginaAtual == 'rn'" />
     <a *ngIf="rn" class="btn" 
         [class.btn-light]="paginaAtual != 'rn'"
         [class.btn-info]="paginaAtual == 'rn'"
@@ -41,14 +41,13 @@
         {{rn.sigla}}{{ rn.numero | number: '2.0-2'}} - {{ rn.titulo }}
     </a> 
 </h4>
-<div>
-    <button class="btn btn-outline-info" aria-label="Novo" (click)="novoObjeto()" >
-        <i class="material-icons"> note_add </i>
-    </button>
-    <button class="btn btn-outline-warning" aria-label="Editar" (click)="editarObjeto()" >
+<div *ngIf="objetoAtual">
+    <button class="btn btn-outline-warning" aria-label="Editar" placement="top" 
+            [ngbTooltip]="'Editar ' + getObjAtualClase()" (click)="editarObjeto()" >
         <i class="material-icons"> mode_edit </i>
     </button>
-    <app-botao-excluir (aoExcluir)="deletaObjAtual()"></app-botao-excluir>
+    <app-botao-excluir [classeObj]="getObjAtualClase()"
+                       (aoExcluir)="deletaObjAtual()"></app-botao-excluir>
 </div>
 
 <app-janela (saiuResultado)="janelaResultado($event)" ></app-janela> 

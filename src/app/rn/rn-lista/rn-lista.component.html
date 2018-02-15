@@ -1,7 +1,15 @@
-<ul class="rns list-group ">
-    <li class="list-group-item  " *ngFor="let rn of rns" >  
-        <button class="btn btn-info form-control" routerLink="/rn/{{rn.id}}" >
-            {{rn.sigla}}{{rn.numero  | number: '2.0-2'}} - {{rn.titulo}}
-        </button>
-    </li>
-</ul>
+<h2> Regras de Negócio    
+    <button class="btn btn-outline-info" aria-label="Novo" (click)="abreJanela.emit('rn')" >
+        <i class="material-icons"> note_add </i>
+    </button>
+    <button class="btn btn-outline-info" aria-label="Novo" (click)="abreJanela.emit('rn-listasel')" >
+        <i class="material-icons"> extension </i>
+    </button>
+</h2>
+<div class="list-group ">
+    <button *ngFor="let rn of rns" class="list-group-item list-group-item-info"
+        routerLink="/rn/{{rn.id}}">
+        {{rn.sigla}}{{rn.casouso_id? (rn.casouso_id  | number: '2.0-2') : 00 }}.{{ rn.numero  | number: '2.0-2'}} - {{rn.titulo}}
+</button>
+</div>
+

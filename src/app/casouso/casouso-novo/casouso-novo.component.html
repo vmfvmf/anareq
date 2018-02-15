@@ -1,34 +1,29 @@
+<h5 class="input-group mb-3"> {{janela}} </h5>
 
-<div class="modal-body">
-    <h5 class="input-group mb-3"> {{janela}} </h5>
-    <div class="input-group mb-3">
-        <div class="input-group-prepend">
-            <label class="input-group-text" for="numero">Número</label>
-        </div>
-        <input #numero [(ngModel)]="casouso.numero" id="numero"  type="text" class="form-control" placeholder="número" required="">
+<div class="input-group mb-3">
+    <div class="input-group-prepend">
+        <label class="input-group-text" for="titulo">numero</label>
     </div>
-
-    <div class="input-group mb-3">
-        <div class="input-group-prepend">
-            <label class="input-group-text" for="titulo">Título</label>
-        </div>
-        <input #titulo [(ngModel)]="casouso.titulo" id="titulo" type="text" class="form-control" placeholder="título" required="">
-    </div>
-
-
-    <div class="input-group">
-        <div class="input-group-prepend">
-            <span class="input-group-text">Descrição</span>
-        </div>
-        <textarea #descricao [(ngModel)]="casouso.descricao" id="descricao"  class="form-control" aria-label="With textarea"></textarea>
-    </div>
-    <br/>
+    <input [(ngModel)]="objeto.numero" id="numero" type="text" 
+        class="form-control" placeholder="numero" required="">
 </div>
 
-<div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" 
-            (click)="gravar()" >Gravar</button>
+<div class="input-group mb-3">
+    <div class="input-group-prepend">
+        <label class="input-group-text" for="titulo">Título</label>
+    </div>
+    <input [(ngModel)]="objeto.titulo" id="titulo" type="text" 
+        class="form-control" placeholder="título" required="">
 </div>
+
+<div class="input-group">
+    <div class="input-group-prepend">
+        <span class="input-group-text">Descrição</span>
+    </div>
+    <textarea [(ngModel)]="objeto.descricao" id="descricao"  
+        class="form-control" aria-label="With textarea"></textarea>
+</div>
+<br/>
 
 
 

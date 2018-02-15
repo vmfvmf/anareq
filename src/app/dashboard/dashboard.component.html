@@ -1,2 +1,3 @@
+<app-breadcrumb #controller (atualizouObjeto)="objeto=$event" ></app-breadcrumb>
 
-<app-projeto-lista></app-projeto-lista>
+<app-projeto-lista (abreJanela)="controller.abreJanelaX($event)" ></app-projeto-lista>

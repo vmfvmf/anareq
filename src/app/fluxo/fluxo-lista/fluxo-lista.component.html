@@ -1,25 +1,10 @@
-<h2>Fluxos 
-    <button class="btn btn-sm btn-outline-primary" aria-label="Novo" (click)="novo(content)"  >
-        <span aria-hidden="true">n</span>
-    </button>
-</h2>
-<ul class="sprints list-group">
-    <li class="list-group-item " *ngFor="let fluxo of fluxos" >     
-        <div class="input-group">
-            <button class="btn btn-info form-control" routerLink="/fluxo/{{fluxo.id}}" >
-                {{fluxo.sigla}} - {{fluxo.titulo}}
-            </button>
-
-            <div class="input-group-append list-group-item">
-
-                <button class="btn btn-outline-warning" aria-label="Editar" (click)="editar(content,fluxo)" >
-                    <span aria-hidden="true"> e </span>
-                </button>
-                <app-botao-excluir (aoExcluir)="delete(fluxo)"></app-botao-excluir>
-            </div>
-        </div>
-    </li>
-</ul>
-
-<app-fluxo-novo [fluxo]="fluxo" (aposGravar)="getFluxos()" ></app-fluxo-novo>
+<h2>Fluxos <button class="btn btn-outline-info" aria-label="Novo" (click)="abreJanela.emit('fluxo')" >
+        <i class="material-icons"> note_add </i>
+    </button> </h2>
+<div class="list-group " *ngIf="fluxos">
+    <button *ngFor="let fluxo of fluxos" class="list-group-item list-group-item-info"
+        routerLink="/fluxo/{{fluxo.id}}">
+        {{fluxo.numero == 0 ? 'FB' : 'FA' + (fluxo.numero  | number: '2.0-2') }} - {{fluxo.titulo}}
+</button>
+</div>
 

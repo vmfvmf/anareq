@@ -1,8 +1,10 @@
-<app-breadcrumb (atualizouObjeto)="objeto=$event" ></app-breadcrumb>
+<app-breadcrumb #controller (atualizouObjeto)="objeto=$event" ></app-breadcrumb>
 
 <br/>
-
-<app-casouso-lista [sprint_id]="objeto.id" ></app-casouso-lista>
-
-
+<div *ngIf="objeto" >
+    <br/>
+    <app-casouso-lista  (abreJanela)="controller.abreJanelaX('casouso')" 
+    [sprint]="objeto" ></app-casouso-lista>
+    <br/>
+</div>
 

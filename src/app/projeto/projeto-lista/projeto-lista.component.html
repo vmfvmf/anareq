@@ -1,4 +1,6 @@
-<h2>Projetos 
+<h2>Projetos <button class="btn btn-outline-info" aria-label="Novo" (click)="abreJanela.emit('projeto')" >
+        <i class="material-icons"> note_add </i>
+    </button> 
 </h2>
 <div class="projetos list-group ">
     <button *ngFor="let projeto of projetos" class="list-group-item list-group-item-info"
