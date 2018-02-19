@@ -1,10 +1,13 @@
   
-    <button class="btn btn-outline-success" (click)="abreJanela.emit('fluxopasso-esoboco')" placement="top" ngbTooltip="Incluir esboço"  aria-label="Novo"  >
+<button *ngIf="!esboco" class="btn btn-outline-success" (click)="abreJanela.emit('fluxopasso-esoboco')" 
+    placement="top" ngbTooltip="Incluir esboço"  aria-label="Novo"  >
         <i class="material-icons"> perm_media </i>
     </button>
-<div *ngIf="esboco" class="list-group ">
-   
+<div *ngIf="esboco" > 
+<h4> Esboço {{ esboco.numero}} - {{ esboco.titulo }} <app-botao-excluir [classeObj]="'Esboço'"
+    (aoExcluir)="deletaEsboco()">></app-botao-excluir></h4>
+<br>
+<img style="max-height: 200px" [src]="'http://' + esboco.imgurl" [alt]="esboco.titulo">
 </div>
-
 <br/>
 <br/>

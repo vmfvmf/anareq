@@ -1,6 +1,5 @@
-import {Component, OnInit, Input} from '@angular/core';
-import {Sprint} from "../../sprint/sprint";
-import {Casouso} from "../casouso";
+import {Component, OnInit} from '@angular/core';
+import { FacadeService } from '../../facade.service';
 
 
 @Component({
@@ -8,15 +7,12 @@ import {Casouso} from "../casouso";
     templateUrl: './casouso-detalhes.component.html'
 })
 export class CasousoDetalhesComponent implements OnInit {
-    private _casouso: Casouso;
-    @Input() 
-    set objeto(obj: Casouso) { this._casouso = obj; }
-    get objeto() { return this._casouso; }
+    get casouso(){ return this.facadeService.casouso; }
     
-    public sprint: Sprint;
-
-    constructor() {}
-
-    ngOnInit() {  }
+    constructor( private facadeService: FacadeService ) {}
+    
+    ngOnInit() {
+        this.facadeService.carregaInfo();
+    }
 
 }

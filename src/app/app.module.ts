@@ -36,13 +36,14 @@ import {RnService} from './rn/rn.service';
 import {RnListaComponent} from './rn/rn-lista/rn-lista.component';
 import {RnListaselComponent} from './rn/rn-listasel/rn-listasel.component';
 import { BotaoExcluirComponent } from './componentes/botao-excluir/botao-excluir.component';
-import { JanelaComponent, NgbdModalContent } from './componentes/janela/janela.component';
+import { JanelaService, NgbdModalContent } from './componentes/janela/janela.service';
 import { JanelaDirective } from './componentes/janela/janela.directive';
 import { RnDetalhesComponent } from './rn/rn-detalhes/rn-detalhes.component';
 import { BreadcrumbComponent } from './componentes/breadcrumb/breadcrumb.component';
 import { FluxopassoDetalhesComponent } from './fluxo/fluxopasso-detalhes/fluxopasso-detalhes.component';
 import { FluxopassoEsbocoComponent } from './fluxo/fluxopasso-esboco/fluxopasso-esboco.component';
 import { FluxopassoEsbocoNovoComponent } from './fluxo/fluxopasso-esboco-novo/fluxopasso-esboco-novo.component';
+import { FacadeService } from './facade.service';
 
 
 @NgModule({
@@ -71,7 +72,7 @@ import { FluxopassoEsbocoNovoComponent } from './fluxo/fluxopasso-esboco-novo/fl
         RnNovoComponent,
         RnListaComponent,
         RnListaselComponent,
-        JanelaComponent, NgbdModalContent,
+        NgbdModalContent,
         JanelaDirective,
         RnDetalhesComponent,
         BreadcrumbComponent,
@@ -93,7 +94,7 @@ import { FluxopassoEsbocoNovoComponent } from './fluxo/fluxopasso-esboco-novo/fl
         //)
     ],
     providers: [MessageService, LoginService, ProjetoService, SprintService, CasousoService,
-        FluxoService, FluxopassoService, RnService],
+        FluxoService, FluxopassoService, RnService, JanelaService, FacadeService],
     bootstrap: [AppComponent],
     entryComponents: [NgbdModalContent, RnNovoComponent, SprintNovoComponent, CasousoNovoComponent, FluxoNovoComponent,
         ProjetoNovoComponent, FluxopassoNovoComponent, RnListaselComponent, FluxopassoEsbocoNovoComponent]

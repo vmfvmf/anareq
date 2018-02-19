@@ -1,11 +1,15 @@
 <app-breadcrumb #controller (atualizouObjeto)="objeto=$event" ></app-breadcrumb>
 <br>
 
+<div *ngIf="objeto">
 
-<app-fluxopasso-esboco
-    (abreJanela)="controller.abreJanelaX($event,objeto)" 
+
+
+<app-fluxopasso-esboco [fluxopasso]="objeto"
+    (abreJanela)="controller.abreJanelaX('fluxopasso-esboco')" 
     ></app-fluxopasso-esboco>
 
 <app-rn-lista 
     (abreJanela)=" $event=='rn-listasel' ? controller.abreJanelaX($event,objeto) :controller.abreJanelaX($event)" 
-    *ngIf="objeto"  [objeto]="objeto" ></app-rn-lista>   
+   [objeto]="objeto" ></app-rn-lista>   
+</div>

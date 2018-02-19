@@ -45,4 +45,5 @@ export class FluxoService extends DbbaseService {
         return super.detalhes(id);
     }
 
+
 }

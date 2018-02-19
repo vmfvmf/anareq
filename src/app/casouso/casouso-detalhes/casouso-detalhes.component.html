@@ -1,10 +1,10 @@
-<app-breadcrumb #controller (atualizouObjeto)="objeto=$event" ></app-breadcrumb>
+<app-breadcrumb ></app-breadcrumb>
 <br>
-<div *ngIf="objeto"  >
+<div *ngIf="casouso"  >
     <div> 
-        {{objeto.descricao}}
+        {{casouso.descricao}}
     </div>
 </div>
 <br/>
 
-<app-fluxo-lista (abreJanela)="controller.abreJanelaX($event)"  *ngIf="objeto" [casouso]="objeto" ></app-fluxo-lista>
+<app-fluxo-lista ></app-fluxo-lista>

@@ -23,7 +23,8 @@ export class DbbaseService {
         return this._className;
     }
 
-    private _baseUrl = 'http://192.168.15.11/Services/';
+    private _baseUrl = 'http://ovnici.us:83/Services/';
+    private UrlFileUpload = 'http://ovnici.us:83/Services/upload';
     
     get baseUrl() {
         return this._baseUrl + this.className + '?x=';
@@ -53,7 +54,7 @@ export class DbbaseService {
         );
     }
     
-    nova_relacao(param: any, relNomeT: string): Observable<any> {
+     nova_relacao(param: any, relNomeT: string): Observable<any> {
         this.log({msg: `criando relacao ${relNomeT} ${param}`});
         var url = this.baseUrl + relNomeT;
          this.log({msg: `criando relacao ${url}`});
@@ -63,11 +64,16 @@ export class DbbaseService {
         );
     }
 
-    detalhes(id: number): Observable<any> {
-        const url = `${this.baseUrl}detalhes&id=${id}`;
+    protected detalhes(id: number, detalhes: string = 'detalhes'): Observable<any> {
+        const url = `${this.baseUrl}${detalhes}&id=${id}`;
         this.log({msg: `recuperando ${this.className} | url: ${url}` });
         return this.http.get<any>(url).pipe(
-            tap((arg: any) => this.log({msg:`recuperado ${this.className} com id ${arg.id} `})),
+            tap((arg: any) => {
+                this.log( arg?
+                    {msg:`recuperado ${this.className} com id ${(<IAlertMsg>arg).msg} `} 
+                   : {msg:`nenhum registro encontrado. classname: ${this.className}, servico: ${detalhes}`}
+                );
+            }),
             catchError(this.handleError<any>(`${this.className} id=${id}`))
         );
     }
@@ -85,12 +91,15 @@ export class DbbaseService {
         var url = this.baseUrl + servico; 
         this.log({msg: `recuperando ${this.className} | url: ${url}` });
         return this.http.post<any[]>(url, {id: algum_id}, httpOptions).pipe(
-            tap((vars: any[]) => this.log({msg: `recuperado ${vars.length} registros do tipo ${this.className} `})),
+            tap((vars: any[]) => {
+                vars ? this.log({msg: `recuperado ${vars.length} registros do tipo ${this.className} `})
+                : this.log({msg: `Nenhum registro encontrado -> ${this.className}`})
+            }),
             catchError(this.handleError<any[]>(`todos ${this.className} do ${servico} id ${algum_id}`))
         );
     }
 
-    gravar(obj: any): Observable<any> {
+    protected gravar(obj: any): Observable<any> {
         this.log({msg:`atualizando ${this.className}`});
         let url = this.baseUrl + 'gravar';
         return this.http.post<any>(url, obj, httpOptions).pipe(
@@ -100,8 +109,8 @@ export class DbbaseService {
         );
     }
     
-    deleta(id: number): Observable<IAlertMsg> {
-        const url = `${this.baseUrl}deleta&id=${id}`;
+    protected deleta(id: number, deletaName: string = 'deleta'): Observable<IAlertMsg> {
+        const url = `${this.baseUrl}${deletaName}&id=${id}`;
         this.log({msg:`deletando ${this.className} url: ${url}`});
         return this.http.delete<IAlertMsg>(url, httpOptions).pipe(
             tap(( ) => this.log({msg: `Registro excluído com sucesso.`, tipo: 'success' })),
@@ -109,16 +118,37 @@ export class DbbaseService {
         );
     }
 
+    protected deletaObjComImg(id: number, imgurl: string,deletaName: string = 'deleta'): Observable<IAlertMsg> {
+        const url = `${this.baseUrl}${deletaName}&id=${id}&imgurl=${imgurl}`;
+        this.log({msg:`deletando ${this.className} url: ${url}`});
+        return this.http.delete<IAlertMsg>(url, httpOptions).pipe(
+            tap(( ) => this.log({msg: `Registro excluído com sucesso.`, tipo: 'success' })),
+            catchError(this.handleError<IAlertMsg>(`deleta ${this.className}`))
+        );
+    }
+
+    protected enviarArquivo(fileToUpload: File): Observable<IAlertMsg>{
+        const _formData = new FormData();
+        _formData.append('file', fileToUpload, fileToUpload.name);   
+        this.log({msg:`enviando arquivo ${this.className} url: ${this.UrlFileUpload}`});
+        return<any>this.http.post(this.UrlFileUpload, _formData).pipe(
+            tap((imsg: IAlertMsg) => this.log({msg: `Upload concluído com sucesso.`, tipo: 'success' })),
+            catchError(this.handleError<IAlertMsg>(`enviar arquivo ${this.className}`))
+         ) ; //note: no HttpHeaders passed as 3d param to POST!
+                                                 //So no Content-Type constructed manually.
+    }
+
 
     handleError<T>(operation = 'operation', result?: T) {
         return (error: any): Observable<T> => {
 
             // TODO: send the error to remote logging infrastructure
-            console.error(error); // log to console instead
+            console.log(error); // log to console instead
+            console.log(result);
 
             // TODO: better job of transforming error for user consumption
             //
-            this.log({msg: `${operation} falhou: ${error.message}`, tipo: 'danger' });
+            this.log({msg: `${operation} falhou: ${error.message}, code: ${error.code}`, tipo: 'danger' });
 
             // Let the app keep running by returning an empty result.
             return of(result as T);

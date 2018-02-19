@@ -1,6 +1,7 @@
 import {Component, OnInit, Output, EventEmitter} from '@angular/core';
 import {Projeto} from '../projeto';
 import {ProjetoService} from '../projeto.service';
+import { FacadeService } from '../../facade.service';
 
 @Component({
     selector: 'app-projeto-lista',
@@ -8,19 +9,14 @@ import {ProjetoService} from '../projeto.service';
 })
 export class ProjetoListaComponent implements OnInit {
 
-    constructor(private projetoService: ProjetoService) {}
+    constructor(private facadeService: FacadeService) {}
     
     projetos: Projeto[];
 
-     @Output() abreJanela = new EventEmitter<any>();
-    
     ngOnInit() {
-        this.getProjetos();
-    }
-
-    getProjetos(): void {
-        this.projetoService.todos()
+        this.facadeService.projetoService.todos()
             .subscribe(projetos => this.projetos = projetos);
     }
+
 
 }

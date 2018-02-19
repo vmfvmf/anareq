@@ -1,5 +1,5 @@
 import {Component, OnInit, Input, ViewChild, ViewContainerRef,
-    Output, EventEmitter, OnDestroy} from '@angular/core';
+    Output, EventEmitter, OnDestroy, Injectable} from '@angular/core';
 import {NgbModal, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {JanelaDirective} from './janela.directive';
 import {EuFormulario} from '../../Interfaces/MinhasInterfaces';
@@ -21,31 +21,24 @@ import {EuFormulario} from '../../Interfaces/MinhasInterfaces';
     </div>
   `
 })
-export class NgbdModalContent implements OnDestroy{
+export class NgbdModalContent {
     @Input() @ViewChild(JanelaDirective) jD: JanelaDirective;
     @Input() janelaTitulo: string = 'Novo';
     @Output() resultado = new EventEmitter<string>();
     constructor(public activeModal: NgbActiveModal) { }
-    
-    ngOnDestroy(){ }
 }
 
-@Component({
-    selector: 'app-janela',
-    templateUrl: './janela.component.html'
-})
-export class JanelaComponent implements OnInit {
+@Injectable()
+export class JanelaService {
     
-   @Input() janelaTitulo: string = 'Novo';
+   janelaTitulo: string = 'Novo';
    @Output() saiuResultado = new EventEmitter<any>();
     //janelaTitulo
-    @Input() janelaFuncao: string = 'Novo';
-    @Input() textoBotao: string = 'Novo';
+   janelaFuncao: string = 'Novo';
+    textoBotao: string = 'Novo';
     childContent: any; // formulario a ser instanciado
     objeto: any; // parametro a ser passado para formulario
-    constructor(private modalService: NgbModal) {}
- 
-    ngOnInit() {  }
+   constructor(private modalService: NgbModal) {}
 
     open(componentFactory: any) {
         const modalRef = this.modalService.open(NgbdModalContent);

@@ -1,30 +1,25 @@
-import {Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
-import {Fluxo} from '../fluxo';
-import {FluxoService} from '../fluxo.service';
-import {Casouso} from '../../casouso/casouso';
+import {Component, OnInit } from '@angular/core';
+import { FacadeService } from '../../facade.service';
 
 @Component({
     selector: 'app-fluxo-lista',
     templateUrl: './fluxo-lista.component.html'
 })
 export class FluxoListaComponent implements OnInit {
-    private _casouso: Casouso;
-    @Input()
-    set casouso(obj: Casouso) {this._casouso = obj; this.getFluxos(); }
-    get casouso() {return this._casouso;}
+
+    get casouso() {return this.facadeService.casouso;}
+    get fluxos() {return this.facadeService.casouso.fluxos;}
     
-    @Output() abreJanela = new EventEmitter<any>();
 
-    fluxos: Fluxo[];
-    fluxo: Fluxo;
+    constructor(private facadeService: FacadeService) { }
 
-    constructor(private fluxoService: FluxoService) { }
-
-    ngOnInit() { }
-
-    getFluxos(): void {
-        this.fluxoService.todos_do_casouso(this.casouso.id)
-            .subscribe(fluxos => this.fluxos = fluxos);
+    ngOnInit() { 
+        console.log(this.facadeService.casouso);
+        this.facadeService.fluxoService.todos_do_casouso(this.casouso.id)
+            .subscribe(fluxos => {
+                this.facadeService.casouso.fluxos = fluxos;
+            });
     }
+
     
 }

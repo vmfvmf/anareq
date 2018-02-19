@@ -1,16 +1,28 @@
 import { Component, OnInit, Output, EventEmitter, Input} from '@angular/core';
 import {FluxopassoService} from '../fluxopasso.service';
+import {Fluxopasso} from '../fluxopasso';
+import { Fluxopassoesboco } from '../fluxopassoesboco';
 
 @Component({
   selector: 'app-fluxopasso-esboco',
   templateUrl: './fluxopasso-esboco.component.html'
 })
 export class FluxopassoEsbocoComponent implements OnInit {
-    esboco = false;
-   //private _sprint: Sprint;
-    @Input() 
-    //set sprint(obj: Sprint) {this._sprint = obj; this.getCasousos();}
-    //get sprint() {return this._sprint;}
+ 
+    esboco: Fluxopassoesboco;
+    
+    @Input() set fluxopasso(obj: Fluxopasso){
+      if (obj){
+        this._fluxopasso = obj;
+        //console.log(this._fluxopasso.id);
+        this.getEsboco(this._fluxopasso.id);
+      } 
+
+    }
+    get fluxopasso(){ return this._fluxopasso; }
+
+    private _fluxopasso: Fluxopasso;
+   
     
     @Output() abreJanela = new EventEmitter<any>();
     
@@ -21,13 +33,15 @@ export class FluxopassoEsbocoComponent implements OnInit {
 
     ngOnInit() {  }
 
-    getCasousos(): void {
-      //  this.fluxopassoService.todos_do_sprint(this.sprint.id)
-      //      .subscribe(casousos => this.casousos = casousos);
+    getEsboco(id: number) {
+      this.fluxopassoService.getEsboco(id).subscribe(
+        (obj) =>{
+          this.esboco = obj;
+        } 
+      );
     }
-    
-    novaJanela(){
-        this.abreJanela.emit("CasousoNovoComponent");
+    deletaEsboco(){
+      let imgurl = this.esboco.imgurl;
+      this.fluxopassoService.deletaEsboco(this.esboco).subscribe();
     }
-
 }

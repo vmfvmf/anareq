@@ -2,31 +2,20 @@ import {Component, Input, OnInit, EventEmitter, Output} from '@angular/core';
 import {Sprint} from '../sprint';
 import {Projeto} from '../../projeto/projeto';
 import {SprintService} from '../sprint.service';
+import { FacadeService } from '../../facade.service';
 
 @Component({
     selector: 'app-sprint-lista',
     templateUrl: './sprint-lista.component.html'
 })
 export class SprintListaComponent implements OnInit {
-    private _projeto: Projeto;
-    @Input()
-    set projeto(obj: Projeto) {this._projeto = obj; this.getSprints(); }
-    get projeto() {return this._projeto;}
-
-    sprints: Sprint[];
-    sprint: Sprint;
-    
-    @Output() abreJanela = new EventEmitter<any>();
-
-    constructor(private sprintService: SprintService) {}
+    get sprints(){ return this.facadeService.projeto.sprints;}
+    constructor(private facadeService: FacadeService) {}
 
     ngOnInit() {
-        this.getSprints();
+        this.facadeService.sprintService.todos_do_projeto(this.facadeService.projeto.id)
+            .subscribe(sprints => this.facadeService.projeto.sprints = sprints);
     }
 
-    getSprints(): void {
-        this.sprintService.todos_do_projeto(this.projeto.id)
-            .subscribe(sprints => this.sprints = sprints);
-    }
     
 }

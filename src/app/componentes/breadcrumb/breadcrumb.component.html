@@ -2,7 +2,7 @@
     <a *ngIf="projeto" class="btn" 
         [class.btn-light]="paginaAtual != 'projeto'"
         [class.btn-info]="paginaAtual == 'projeto'"
-        routerLink="/projeto/{{projeto.id}}" >
+        routerLink="/projeto/{{facadeService.projeto.id}}" >
         {{ projeto.nome | uppercase }}  
     </a> 
     <br *ngIf="paginaAtual == 'sprint'" />
@@ -49,5 +49,3 @@
     <app-botao-excluir [classeObj]="getObjAtualClase()"
                        (aoExcluir)="deletaObjAtual()"></app-botao-excluir>
 </div>
-
-<app-janela (saiuResultado)="janelaResultado($event)" ></app-janela> 

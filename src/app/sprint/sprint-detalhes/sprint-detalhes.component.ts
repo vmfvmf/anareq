@@ -1,18 +1,19 @@
-import {Component, OnInit, Input } from '@angular/core';
-import {Sprint} from "../sprint";
+import { Component, OnInit } from '@angular/core';
+import { Sprint } from "../sprint";
+import { FacadeService } from '../../facade.service';
 
 @Component({
     selector: 'app-sprint-detalhes',
     templateUrl: './sprint-detalhes.component.html'
 })
 export class SprintDetalhesComponent implements OnInit {
- 
-    private _sprint: Sprint;
-    @Input()
-    set objeto(p: Sprint) {  this._sprint = p;  }
-    get objeto() {  return this._sprint; }
-    constructor() {}
 
-    ngOnInit() { }
+    get objeto() { return this.facadeService.sprint; }
+
+    constructor(private facadeService: FacadeService) { }
+
+    ngOnInit() {
+        this.facadeService.carregaInfo();
+    }
 
 }

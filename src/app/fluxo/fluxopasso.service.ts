@@ -45,9 +45,21 @@ export class FluxopassoService extends DbbaseService {
 
     }
 
+    deletaEsboco(obj: Fluxopassoesboco): Observable<IAlertMsg> {
+        return super.deletaObjComImg(obj.fluxopasso_id, obj.imgurl, 'deleta_esboco');
+    }
+
     /** GET hero by id. Will 404 if id not found */
     detalhes(id: number): Observable<Fluxopasso> {
         return super.detalhes(id);
+    }
+
+    getEsboco(fluxopasso_id: number): Observable<Fluxopassoesboco> {
+        return super.detalhes(fluxopasso_id, 'get_esboco');
+    }
+
+    carregarArquivo(file: File): Observable<any>{
+        return super.enviarArquivo(file);
     }
 
 }

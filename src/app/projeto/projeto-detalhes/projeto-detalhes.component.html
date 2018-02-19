@@ -1,4 +1,4 @@
-<app-breadcrumb #controller (atualizouObjeto)="objeto=$event" ></app-breadcrumb>
+<app-breadcrumb></app-breadcrumb>
 
 <div *ngIf="objeto" >
     <br/>
@@ -6,6 +6,6 @@
         {{ objeto.descricao }}
     </p>
     <br/>
-    <app-sprint-lista (abreJanela)="controller.abreJanelaX('sprint')" [projeto]="objeto" ></app-sprint-lista>
+    <app-sprint-lista></app-sprint-lista>
     <br/>
 </div>

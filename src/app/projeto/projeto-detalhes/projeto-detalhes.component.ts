@@ -1,17 +1,18 @@
 import {Component, OnInit, Input } from '@angular/core';
 import {Projeto} from "../projeto";
+import { FacadeService } from '../../facade.service';
 
 @Component({
     selector: 'app-projeto-detalhes',
     templateUrl: './projeto-detalhes.component.html' 
 })
 export class ProjetoDetalhesComponent implements OnInit {
-    private _projeto: Projeto;
-    @Input() 
-    set objeto(obj: Projeto) { this._projeto =  obj; }
-    get objeto(){ return this._projeto; }
+
+    get objeto(){ return this.facadeService.projeto; }
     
+    constructor( private facadeService: FacadeService ) {}
     
-    constructor( ) {}
-    ngOnInit() { }
+    ngOnInit() {
+        this.facadeService.carregaInfo();
+    }
 }
